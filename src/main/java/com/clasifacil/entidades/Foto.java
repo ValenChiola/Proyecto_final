@@ -1,6 +1,7 @@
 
 package com.clasifacil.entidades;
 
+<<<<<<< HEAD
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,4 +57,18 @@ public class Foto {
     }
   
   
+=======
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ *
+ * @author Estela
+ */
+@Entity
+public class Foto {
+    
+    @Id
+    private String id;
+>>>>>>> 3ebea1acf965b0df4b7bffe29e89d37ac02a39dc
 }
