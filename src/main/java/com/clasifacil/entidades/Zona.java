@@ -5,10 +5,16 @@
  */
 package com.clasifacil.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Estela
  */
+@Entity
 public class Zona {
     
+    @Id
+    private String id;
 }

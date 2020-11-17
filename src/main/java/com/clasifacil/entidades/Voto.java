@@ -5,10 +5,16 @@
  */
 package com.clasifacil.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Estela
  */
+@Entity
 public class Voto {
     
+    @Id
+    private String id;
 }

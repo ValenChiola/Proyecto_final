@@ -5,10 +5,13 @@
  */
 package com.clasifacil.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Estela
  */
+@Service
 public class FotoService {
     
 }
