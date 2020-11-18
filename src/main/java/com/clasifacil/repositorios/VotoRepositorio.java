@@ -5,6 +5,8 @@
  */
 package com.clasifacil.repositorios;
 
+import com.clasifacil.entidades.Voto;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Estela
  */
 @Repository
-public interface VotoRepositorio {
+public interface VotoRepositorio extends JpaRepository<Voto, String> {
     
 }
