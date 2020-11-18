@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.clasifacil.entidades;
 
 import javax.persistence.Entity;
@@ -10,17 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- *
- * @author Estela
- */
 @Entity
 public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
-    
-    private String CUIT;
     
     private Usuario usuario;
     
@@ -29,9 +18,8 @@ public class Voto {
     public Voto() {
     }
 
-    public Voto(String id, String CUIT, Usuario usuario, Prestador prestador) {
+    public Voto(String id, Usuario usuario, Prestador prestador) {
         this.id = id;
-        this.CUIT = CUIT;
         this.usuario = usuario;
         this.prestador = prestador;
     }
@@ -42,14 +30,6 @@ public class Voto {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCUIT() {
-        return CUIT;
-    }
-
-    public void setCUIT(String CUIT) {
-        this.CUIT = CUIT;
     }
 
     public Usuario getUsuario() {
@@ -70,7 +50,7 @@ public class Voto {
 
     @Override
     public String toString() {
-        return "Voto{" + "id=" + id + ", CUIT=" + CUIT + ", usuario=" + usuario + ", prestador=" + prestador + '}';
+        return "Voto{" + "id=" + id + ", usuario=" + usuario + ", prestador=" + prestador + '}';
     }
     
     

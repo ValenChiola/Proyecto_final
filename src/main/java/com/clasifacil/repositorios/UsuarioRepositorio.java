@@ -5,6 +5,8 @@
  */
 package com.clasifacil.repositorios;
 
+import com.clasifacil.entidades.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Estela
  */
 
-public interface UsuarioRepositorio {
+public interface UsuarioRepositorio extends JpaRepository<Usuario, String>{
     
 }
