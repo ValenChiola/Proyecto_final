@@ -1,5 +1,5 @@
-
 package com.clasifacil.entidades;
+
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
@@ -54,4 +54,6 @@ public class Foto {
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
     }
+  
+  
 }

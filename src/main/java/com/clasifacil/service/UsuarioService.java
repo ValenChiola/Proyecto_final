@@ -5,14 +5,22 @@ import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Roles;
 import com.clasifacil.repositorios.UsuarioRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -71,7 +79,7 @@ public class UsuarioService implements UserDetailsService {
             throw new Error("No existe ese Usuario.");
         }
     }
-   
+
     @Transactional
     public void habiltar(String dni) {
 
@@ -93,7 +101,7 @@ public class UsuarioService implements UserDetailsService {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new Error("Debe indicar el nombre.");
         }
-        
+
         if (apellido == null || apellido.trim().isEmpty()) {
             throw new Error("Debe indicar el apellido.");
         }
@@ -124,8 +132,27 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+
+        Usuario u = ur.buscarPorMail(mail);
+
+        if (u == null) {
+            return null;
+        }
+
+        List<GrantedAuthority> permisos = new ArrayList<>();
+
+        GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + u.getRol());
+        permisos.add(p1);
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+        HttpSession session = attr.getRequest().getSession(true);
+        session.setAttribute("usuariosession", u);
+
+        User user = new User(u.getMail(), u.getClave(), permisos);
+
+        return user;
     }
 
 }
