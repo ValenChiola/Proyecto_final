@@ -1,5 +1,5 @@
-
 package com.clasifacil.entidades;
+
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;

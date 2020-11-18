@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Estela
  */
-@Service
+
 public class PrestadorService {
     
 }

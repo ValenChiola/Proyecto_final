@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.clasifacil.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-/**
- *
- * @author Estela
- */
-@Entity
 public class Prestador {
+
+    public Object getCUIT() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
-    @Id
-    private String id;
+    
 }
