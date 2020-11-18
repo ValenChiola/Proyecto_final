@@ -12,7 +12,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class Prestador {
+
+    public Object getCUIT() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
+    
+
     @Id
     private String cuit;
     private String nombre;
@@ -138,4 +145,5 @@ public class Prestador {
         this.apellido = apellido;
     }
     
+
 }
