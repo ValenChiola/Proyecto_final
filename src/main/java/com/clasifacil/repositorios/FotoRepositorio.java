@@ -5,12 +5,12 @@
  */
 package com.clasifacil.repositorios;
 
-import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Estela
- */
-public interface FotoRepositorio {
+import com.clasifacil.entidades.Foto;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FotoRepositorio extends JpaRepository<Foto,String>{
+
+
     
 }
