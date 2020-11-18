@@ -11,15 +11,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Prestador {
-
-    public Object getCUIT() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
-
+public class Prestador {  
 
     @Id
     private String cuit;
