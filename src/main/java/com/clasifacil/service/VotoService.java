@@ -41,7 +41,7 @@ public class VotoService {
         if (respuesta2.isPresent()) {
             Usuario usuario1 = respuesta2.get();
             
-            if (usuario1.getID().equals(id)) {
+            if (usuario1.getDNI().equals(id)) {
                 voto.setUsuario(usuario1);
             }else {
                 throw new Error("No tiene permisos para realizar la operación solicitada");
