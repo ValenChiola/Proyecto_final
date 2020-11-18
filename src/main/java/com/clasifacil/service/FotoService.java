@@ -1,6 +1,5 @@
 package com.clasifacil.service;
 
-<<<<<<< HEAD
 import com.clasifacil.entidades.Foto;
 import com.clasifacil.repositorios.FotoRepositorio;
 import java.io.IOException;
@@ -9,14 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-=======
-import org.springframework.stereotype.Service;
-
-/**
- *
- * @author Estela
- */
->>>>>>> 3ebea1acf965b0df4b7bffe29e89d37ac02a39dc
 @Service
 public class FotoService {
 
