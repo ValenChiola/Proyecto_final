@@ -5,10 +5,13 @@
  */
 package com.clasifacil.repositorios;
 
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author Estela
  */
+@Repository
 public interface VotoRepositorio {
     
 }

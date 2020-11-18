@@ -8,11 +8,13 @@ package com.clasifacil.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Estela
  */
+
 public class UsuarioService implements UserDetailsService {
 
     @Override
