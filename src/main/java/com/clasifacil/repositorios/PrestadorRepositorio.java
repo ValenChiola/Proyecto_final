@@ -22,5 +22,9 @@ import org.springframework.stereotype.Repository;
 public interface PrestadorRepositorio extends JpaRepository<Prestador, String>{
 
     
+     @Query("SELECT u FROM prestador u WHERE u.cuit LIKE :cuit")
+    public Prestador buscarPrestadorPorCuit(@Param("cuit") String cuit);
+
+    
     
 }
