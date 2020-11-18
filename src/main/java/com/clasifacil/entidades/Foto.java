@@ -2,6 +2,8 @@
 package com.clasifacil.entidades;
 
 
+
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,6 +57,4 @@ public class Foto {
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
     }
-  
-  
 }

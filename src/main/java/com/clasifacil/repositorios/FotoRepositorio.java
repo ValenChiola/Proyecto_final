@@ -1,4 +1,3 @@
-
 package com.clasifacil.repositorios;
 
 import com.clasifacil.entidades.Foto;
@@ -7,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
+
 public interface FotoRepositorio extends JpaRepository<Foto, String>{
 
     
