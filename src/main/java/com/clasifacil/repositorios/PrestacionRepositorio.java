@@ -5,13 +5,14 @@
  */
 package com.clasifacil.repositorios;
 
-import org.springframework.stereotype.Repository;
+import com.clasifacil.entidades.Prestacion;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Estela
  */
 
-public interface PrestacionRepositorio {
+public interface PrestacionRepositorio extends JpaRepository<Prestacion, String>{
     
 }
