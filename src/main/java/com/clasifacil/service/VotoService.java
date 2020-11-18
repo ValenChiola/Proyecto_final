@@ -29,7 +29,7 @@ public class VotoService {
         if (respuesta.isPresent()) {
             Prestador prestador1 = respuesta.get();
             
-            if (prestador1.getCUIT().equals(CUIT)) {
+            if (prestador1.getCuit().equals(CUIT)) {
                 voto.setPrestador(prestador1);
             }else {
                 throw new Error("No tiene permisos para realizar la operación solicitada");
@@ -41,7 +41,7 @@ public class VotoService {
         if (respuesta2.isPresent()) {
             Usuario usuario1 = respuesta2.get();
             
-            if (usuario1.getID().equals(id)) {
+            if (usuario1.getDni().equals(id)) {
                 voto.setUsuario(usuario1);
             }else {
                 throw new Error("No tiene permisos para realizar la operación solicitada");
