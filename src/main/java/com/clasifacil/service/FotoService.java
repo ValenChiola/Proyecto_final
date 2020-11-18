@@ -9,13 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import org.springframework.stereotype.Service;
-
-/**
- *
- * @author Estela
- */
-
 @Service
 public class FotoService {
 
