@@ -7574,6 +7574,7 @@ button.bg-dark:focus {
 .mt-4,
 .my-4 {
     margin-top: 1.5rem !important;
+    padding-bottom: 30px;
 }
 
 .mr-4,
@@ -10110,8 +10111,14 @@ a.text-dark:hover, a.text-dark:focus {
     }
 }
 .masthead {
-    padding-top: calc(6rem + 74px);
-    padding-bottom: 6rem;
+    
+        padding-top: 10rem;
+        padding-bottom: calc(10rem - 4.5rem);
+        background: linear-gradient(to bottom, rgba(10, 20, 40, 0.8) 0%, rgba(10, 127, 115, 0.8) 100%), url(/img/fondo.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: cover;
 }
 .masthead .masthead-heading {
     font-size: 2.75rem;
@@ -10126,7 +10133,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 @media (min-width: 992px) {
     .masthead {
-        padding-top: calc(6rem + 104px);
+        padding-top: calc(4rem + 334px);
         padding-bottom: 6rem;
     }
     .masthead .masthead-heading {
