@@ -3,6 +3,7 @@ package com.clasifacil.service;
 import com.clasifacil.entidades.Foto;
 import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Zona;
+import com.clasifacil.enums.Rubros;
 import com.clasifacil.repositorios.FotoRepositorio;
 import com.clasifacil.repositorios.PrestadorRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
@@ -36,7 +37,7 @@ public class PrestadorService {
     
     @Transactional
     public void registrar(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
-            String idZona, Integer serviciosprestados, String idFoto, String descripcion) throws Error {
+            String idZona, Integer serviciosprestados, String idFoto, String descripcion,Rubros rubro) throws Error {
         
         validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion);
         Prestador prestador = new Prestador();
@@ -49,6 +50,7 @@ public class PrestadorService {
         prestador.setServiciosprestados(serviciosprestados);
         prestador.setDescripcion(descripcion);
         prestador.setAlta(new Date());
+        prestador.setRubro(rubro);
         
         Optional<Foto> f = fr.findById(idFoto);
         if (f.isPresent()) {
