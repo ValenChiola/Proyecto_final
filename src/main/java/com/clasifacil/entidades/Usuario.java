@@ -1,5 +1,6 @@
 package com.clasifacil.entidades;
 
+
 import com.clasifacil.enums.Roles;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
