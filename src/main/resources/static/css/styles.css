@@ -10,7 +10,8 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {--blue: #007bff;
+:root {
+    --blue: #007bff;
 /*  --indigo: #6610f2;*/
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -5597,6 +5598,8 @@ a.close.disabled {
     border-style: solid;
 }
 
+
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -5607,6 +5610,7 @@ a.close.disabled {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+
 }
 
 .bs-tooltip-right, .bs-tooltip-auto[x-placement^=right] {
