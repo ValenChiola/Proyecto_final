@@ -19,6 +19,9 @@ public class VotoService {
     @Autowired
     private PrestadorRepositorio prestadorRepositorio;
     
+    @Autowired
+    private VotoRepositorio votoRepositorio;
+    
     public void votar(String id, String CUIT){
         
         Voto voto = new Voto();
@@ -50,7 +53,7 @@ public class VotoService {
             throw new Error("No existe un usuario vinculado a ese identificador");
         }
         
-        
+        votoRepositorio.save(voto);
         
     }
     
