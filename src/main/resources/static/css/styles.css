@@ -10,7 +10,8 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {--blue: #007bff;
+:root {
+    --blue: #007bff;
 /*  --indigo: #6610f2;*/
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -5597,18 +5598,7 @@ a.close.disabled {
     border-style: solid;
 }
 
-<<<<<<< HEAD
-.bs-tooltip-top, .bs-tooltip-auto[x-placement^=top] {
-    padding: 0.4rem 0;
-}
-.bs-tooltip-top .arrow, .bs-tooltip-auto[x-placement^=top] .arrow {
-    bottom: 0;
-}
-.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^=top] .arrow::before {
-    top: 0;
-    border-width: 0.4rem 0.4rem 0;
-    border-top-color: #000;
-=======
+
 
 
 
@@ -5622,7 +5612,7 @@ a.close.disabled {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
->>>>>>> da987062c849f2c460c09def63afe0beb0db0258
+
 }
 
 .bs-tooltip-right, .bs-tooltip-auto[x-placement^=right] {
