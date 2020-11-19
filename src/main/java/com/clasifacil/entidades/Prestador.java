@@ -5,6 +5,7 @@ import com.clasifacil.enums.Rubros;
 import com.clasifacil.enums.Valoraciones;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -29,9 +30,9 @@ public class Prestador {
     
     @OneToMany
     private Zona zona;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Rubros rubro;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Valoraciones valoracion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
