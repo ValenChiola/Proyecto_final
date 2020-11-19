@@ -11,11 +11,9 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Prestador {
 
-    
-    
-    
+public class Prestador {  
+
 
     @Id
     private String cuit;
