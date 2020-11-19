@@ -1,6 +1,8 @@
 
 package com.clasifacil.entidades;
 
+import com.clasifacil.enums.Rubros;
+import com.clasifacil.enums.Valoraciones;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -11,7 +13,9 @@ import javax.persistence.TemporalType;
 
 
 @Entity
+
 public class Prestador {  
+
 
     @Id
     private String cuit;
@@ -26,9 +30,9 @@ public class Prestador {
     @OneToMany
     private Zona zona;
     @Enumerated
-    private Enum rubro;
+    private Rubros rubro;
     @Enumerated
-    private Enum valoracion;
+    private Valoraciones valoracion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
     @OneToMany
@@ -98,19 +102,19 @@ public class Prestador {
         this.zona = zona;
     }
 
-    public Enum getRubro() {
+    public Rubros getRubro() {
         return rubro;
     }
 
-    public void setRubro(Enum rubro) {
+    public void setRubro(Rubros rubro) {
         this.rubro = rubro;
     }
 
-    public Enum getValoracion() {
+    public Valoraciones getValoracion() {
         return valoracion;
     }
 
-    public void setValoracion(Enum valoracion) {
+    public void setValoracion(Valoraciones valoracion) {
         this.valoracion = valoracion;
     }
 
