@@ -21,10 +21,10 @@ private PrestadorService prestadorService;
     @Autowired
     private PrestadorRepositorio prestadorRepositorio;
     
-    @GetMapping("/registro")
-    public String registro(){
+    @GetMapping("/registrar")
+    public String registrar(){
          
-        return "registro.hml";
+        return "registro-prestador.hml";
 }
     
     @PostMapping("/registrar")
@@ -51,7 +51,7 @@ private PrestadorService prestadorService;
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
             modelo.put("mail", mail);
-            modelo.put("clave1", clave);
+            modelo.put("clave", clave);
             modelo.put("clave2", clave2);
             modelo.put("telefono", telefono);
             modelo.put("idZona", idZona);
@@ -61,7 +61,7 @@ private PrestadorService prestadorService;
             modelo.put("rubro", rubro);
             
          
-            return "registro.html";
+            return "registrar-prestador.html";
         }
         modelo.put("titulo","Bievenido");
         modelo.put("descripcion","El prestador del servicio se registro con exito");
