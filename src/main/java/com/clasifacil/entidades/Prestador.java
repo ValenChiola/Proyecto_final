@@ -13,7 +13,9 @@ import javax.persistence.TemporalType;
 
 
 @Entity
+
 public class Prestador {  
+
 
     @Id
     private String cuit;
