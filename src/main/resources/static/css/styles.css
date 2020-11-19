@@ -12,7 +12,9 @@
  */
 :root {
   --blue: #007bff;
+
 /*  --indigo: #6610f2;*/
+
   --purple: #6f42c1;
   --pink: #e83e8c;
   --red: #dc3545;
@@ -7362,14 +7364,8 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-/*@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sticky-top {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-  }
-}*/
+
+
 
 .sr-only {
   position: absolute;
