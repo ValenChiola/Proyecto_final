@@ -27,7 +27,7 @@ public class NotificacionService {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         
         mensaje.setTo(mail);
-        mensaje.setFrom("tinochiola06@gmail.com");
+        mensaje.setFrom("clasifacilarg@gmail.com");
         mensaje.setSubject(titulo);
         mensaje.setText(cuerpo);
         
