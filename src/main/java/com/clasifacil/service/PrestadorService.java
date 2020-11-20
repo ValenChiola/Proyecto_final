@@ -44,9 +44,9 @@ public class PrestadorService implements UserDetailsService{
 
     @Transactional
     public void registrar(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
-            String idZona, Integer serviciosprestados, MultipartFile archivo, String descripcion, Rubros rubro) throws Error {
+            String idZona, MultipartFile archivo, String descripcion, Rubros rubro) throws Error {
 
-        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion, rubro);
+        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, descripcion, rubro);
         Prestador prestador = new Prestador();
 
         prestador.setCuit(cuit);
@@ -56,7 +56,7 @@ public class PrestadorService implements UserDetailsService{
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         prestador.setClave(encriptada);
         prestador.setTelefono(telefono);
-        prestador.setServiciosprestados(serviciosprestados);
+        prestador.setServiciosprestados(0);
         prestador.setDescripcion(descripcion);
         prestador.setAlta(new Date());
         prestador.setRubro(rubro);
@@ -77,9 +77,9 @@ public class PrestadorService implements UserDetailsService{
 
     @Transactional
     public void ModificarPrestador(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
-            String idZona, Integer serviciosprestados, String idFoto, String descripcion, Rubros rubro) throws Error {
+            String idZona, String idFoto, String descripcion, Rubros rubro) throws Error {
 
-        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion, rubro);
+        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, descripcion, rubro);
 
         Optional<Prestador> pres = pr.findById(cuit);
         Prestador prestador = pres.get();
@@ -91,7 +91,6 @@ public class PrestadorService implements UserDetailsService{
         prestador.setMail(mail);
         prestador.setClave(clave);
         prestador.setTelefono(telefono);
-        prestador.setServiciosprestados(serviciosprestados);
         prestador.setDescripcion(descripcion);
 
         Optional<Foto> f = fr.findById(idFoto);
@@ -127,7 +126,7 @@ public class PrestadorService implements UserDetailsService{
     }
 
     public void validar(String cuit, String nombre, String apellido, String mail, String clave,
-            String clave2, String telefono, Integer serviciosprestados, String descripcion, Rubros rubro) {
+            String clave2, String telefono, String descripcion, Rubros rubro) {
 
         if (cuit == null || cuit.isEmpty()) {
             throw new Error("Debe indicar el Cuit.");
@@ -162,10 +161,6 @@ public class PrestadorService implements UserDetailsService{
 
         if (descripcion == null || descripcion.trim().isEmpty()) {
             throw new Error("La descripcion no puede estar vacia.");
-        }
-
-        if (serviciosprestados == null) {
-            throw new Error("Los servicios prestados no pueden ser nulos.");
         }
 
         if (rubro == null) {

@@ -46,14 +46,13 @@ public class PrestadorController {
             @RequestParam String clave2,
             @RequestParam String telefono,
             @RequestParam String idZona,
-            @RequestParam Integer serviciosPrestados,
             @RequestParam MultipartFile foto,
             @RequestParam String descripcion,
             @RequestParam Rubros rubro) {
 
         try {
             prestadorService.registrar(cuit, nombre, apellido, mail, clave, clave2, telefono, idZona,
-                    serviciosPrestados, foto, descripcion, rubro);
+                     foto, descripcion, rubro);
         } catch (Error ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("cuit", cuit);
@@ -64,12 +63,11 @@ public class PrestadorController {
             modelo.put("clave2", clave2);
             modelo.put("telefono", telefono);
             modelo.put("idZona", idZona);
-            modelo.put("serviciosprestados", serviciosPrestados);
             modelo.put("idFoto", foto);
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
 
-            return "registro-prestador.html";
+            return registrar(modelo);
         }
         modelo.put("titulo", "Bievenido");
         modelo.put("descripcion", "El prestador del servicio se registro con exito");
@@ -78,8 +76,9 @@ public class PrestadorController {
     }
 
     @GetMapping("/modificar")
-    public String modificarPrestador() {
-
+    public String modificarPrestador(ModelMap modelo) {
+        List<Zona> zonas = zonaRepositorio.findAll();
+        modelo.put("zonas", zonas);
         return "modificar-prestador.html";
     }
 
@@ -93,7 +92,6 @@ public class PrestadorController {
             @RequestParam String clave2,
             @RequestParam String telefono,
             @RequestParam String idZona,
-            @RequestParam Integer serviciosPrestados,
             @RequestParam String idFoto,
             @RequestParam String descripcion,
             @RequestParam Rubros rubro) {
@@ -101,7 +99,7 @@ public class PrestadorController {
         try {
             prestadorService.ModificarPrestador(cuit, nombre,
                     apellido, mail, clave, clave2, telefono,
-                    idZona, serviciosPrestados, idFoto, descripcion, rubro);
+                    idZona, idFoto, descripcion, rubro);
 
         } catch (Error ex) {
             modelo.put("error", ex.getMessage());
@@ -113,12 +111,11 @@ public class PrestadorController {
             modelo.put("clave2", clave2);
             modelo.put("telefono", telefono);
             modelo.put("idZona", idZona);
-            modelo.put("serviciosPrestados", serviciosPrestados);
             modelo.put("idFoto", idFoto);
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
 
-            return "modificar-prestador.html";
+            return modificarPrestador(modelo);
         }
         modelo.put("Exito", "Se modifico");
         modelo.put("descripcion", "El prestador del servicio se modifico con exito");
