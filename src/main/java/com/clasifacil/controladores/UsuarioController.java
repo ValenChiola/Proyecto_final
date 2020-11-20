@@ -1,6 +1,8 @@
 package com.clasifacil.controladores;
 
+import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Zona;
+import com.clasifacil.repositorios.PrestadorRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.UsuarioService;
 import java.util.List;
@@ -23,6 +25,9 @@ public class UsuarioController {
 
     @Autowired
     private ZonaRepositorio zonaRepositorio;
+    
+    @Autowired
+    private PrestadorRepositorio prestadorRepositorio;
 
     @GetMapping("/registro")
     public String registro(ModelMap modelo) {
@@ -132,5 +137,13 @@ public class UsuarioController {
     @GetMapping("/inicio-usuario")
     public String inicio(){
         return "inicio-usuario.html";
+    }
+    
+    @GetMapping("/buscar/{rubro}")
+    public String buscarPorRubro(ModelMap modelo, @PathVariable("rubro") String rubro){
+        List<Prestador> prestadores = prestadorRepositorio.listarPorRubro(rubro);
+        modelo.put("prestadores", prestadores);
+        
+        return "redirect:/usuario/inicio-usuario";
     }
 }
