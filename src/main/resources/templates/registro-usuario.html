@@ -29,7 +29,7 @@
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/img/logo_clasifacil.png" width="180" height="65" /></a>
+                <a class="navbar-brand js-scroll-trigger" href="/"><img src="/img/logo_clasifacil.png" width="180" height="65" /></a>
 
 
                 <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,49 +49,47 @@
         <!-- Registro Ususario-->
 
         <header class="masthead bg-primary text-white text-center">
-
-            <div id="formularioUsuario" class="col-lg-4 ml-auto"> 
                 <a href="/prestador/registro">Registrate como prestador de servicios</a>
                 <h4>Registro Usuario</h4>
                 <form action="/usuario/registrar" method="POST" class="container d-flex align-items-center flex-column" id="registro-usuario" enctype="multipart/form-data">
                     <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Documento">Documento*</label>
-                        <input type="number" class="input" name="dni" th:value="${dni}" placeholder="Documento" >
+                        <input type="number" class="form-control" name="dni" th:value="${dni}" placeholder="Documento" >
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Nombre" >Nombre*</label>
-                        <input type="text" class="input input-text" name="nombre" th:value="${nombre}" required placeholder="Nombre" >
+                        <input type="text" class="form-control" name="nombre" th:value="${nombre}" required placeholder="Nombre" >
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Apellido">Apellido*</label>
-                        <input type="text" class="input" name="apellido" th:value="${apellido}" required placeholder="Apellido"> 
+                        <input type="text" class="form-control" name="apellido" th:value="${apellido}" required placeholder="Apellido"> 
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Telefono">Teléfono*</label>
-                        <input type="number" class="input" name="telefono" th:value="${telefono}"  placeholder="Telefono">
+                        <input type="number" class="form-control" name="telefono" th:value="${telefono}"  placeholder="Telefono">
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Mail">Mail*</label>
-                        <input type="text" class="input" name="mail" th:value="${mail}"  placeholder="mail">
+                        <input type="text" class="form-control" name="mail" th:value="${mail}"  placeholder="mail">
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="Zona">Zona*</label>
-                        <select  name="idZona"> 
+                        <select class="custom-select" name="idZona"> 
                             <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
                         </select>    
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="clave" >Clave*</label>
-                        <input type="password" class="input" name="clave1" pattern=".{6,}" th:value="${clave1}" th:text="${clave1}" placeholder="Al menos 6 dígitos">
+                        <input type="password" class="form-control" name="clave1" pattern=".{6,}" th:value="${clave1}" th:text="${clave1}" placeholder="Al menos 6 dígitos">
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
+                    <div class="form-group">
                         <label for="clave2" >Repetir Clave*</label>
-                        <input type="password" class="input" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
+                        <input type="password" class="form-control" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
                     </div>
                     <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
                 </form>
-            </div>  
+             
 
             <!-- Registro Proveedor-->
 

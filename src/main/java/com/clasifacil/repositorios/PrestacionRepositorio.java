@@ -21,6 +21,6 @@ import org.springframework.stereotype.Repository;
 public interface PrestacionRepositorio extends JpaRepository<Prestacion, String>{
     
     
-  @Query("SELECT u FROM prestacion u WHERE u.id LIKE :id")
+  @Query("SELECT u FROM Prestacion u WHERE u.id LIKE :id")
     public Prestacion buscarPrestacionPorid(@Param("id") String id);   
 }
