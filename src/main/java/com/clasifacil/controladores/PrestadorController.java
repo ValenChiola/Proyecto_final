@@ -66,5 +66,57 @@ public class PrestadorController {
         return "index.html";
 
     }
+    
+    @GetMapping("/modificar-prestador")
+    public String modificarPrestador(){
+         
+        return "registro-prestador.hml";
+}
+    
+    
+    @PostMapping("/modificar-prestador")
+    public String modificarPrestador(ModelMap modelo,
+            @RequestParam String cuit,
+            @RequestParam String nombre,
+            @RequestParam String apellido,
+            @RequestParam String mail,
+            @RequestParam String clave,
+            @RequestParam String clave2,
+            @RequestParam String telefono,
+            @RequestParam String idZona,        
+            @RequestParam Integer serviciosprestados,     
+            @RequestParam String idFoto,
+            @RequestParam String descripcion,        
+            @RequestParam Rubros rubro){
+
+        try {
+            prestadorService.ModificarPrestador(cuit, nombre, 
+                    apellido, mail, clave, clave2, telefono,
+                    idZona, serviciosprestados, idFoto, descripcion, rubro);
+            
+        } catch (Error ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("cuit", cuit);
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("mail", mail);
+            modelo.put("clave", clave);
+            modelo.put("clave2", clave2);
+            modelo.put("telefono", telefono);
+            modelo.put("idZona", idZona);
+            modelo.put("serviciosprestados", serviciosprestados);
+            modelo.put("idFoto", idFoto);
+            modelo.put("descripcion", descripcion);
+            modelo.put("rubro", rubro);
+            
+         
+            return "modificar-prestador.html";
+        }
+        modelo.put("Exito","Se modifico");
+        modelo.put("descripcion","El prestador del servicio se modifico con exito");
+        return "index.html";
+
+    }
+    
 
 }
