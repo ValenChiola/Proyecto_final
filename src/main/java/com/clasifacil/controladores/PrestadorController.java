@@ -76,13 +76,13 @@ public class PrestadorController {
 
     }
 
-    @GetMapping("/modificar-prestador")
+    @GetMapping("/modificar")
     public String modificarPrestador() {
 
-        return "registro-prestador.hml";
+        return "modificar-prestador.html";
     }
 
-    @PostMapping("/modificar-prestador")
+    @PostMapping("/actualizar")
     public String modificarPrestador(ModelMap modelo,
             @RequestParam String cuit,
             @RequestParam String nombre,
@@ -92,7 +92,7 @@ public class PrestadorController {
             @RequestParam String clave2,
             @RequestParam String telefono,
             @RequestParam String idZona,
-            @RequestParam Integer serviciosprestados,
+            @RequestParam Integer serviciosPrestados,
             @RequestParam String idFoto,
             @RequestParam String descripcion,
             @RequestParam Rubros rubro) {
@@ -100,7 +100,7 @@ public class PrestadorController {
         try {
             prestadorService.ModificarPrestador(cuit, nombre,
                     apellido, mail, clave, clave2, telefono,
-                    idZona, serviciosprestados, idFoto, descripcion, rubro);
+                    idZona, serviciosPrestados, idFoto, descripcion, rubro);
 
         } catch (Error ex) {
             modelo.put("error", ex.getMessage());
@@ -112,7 +112,7 @@ public class PrestadorController {
             modelo.put("clave2", clave2);
             modelo.put("telefono", telefono);
             modelo.put("idZona", idZona);
-            modelo.put("serviciosprestados", serviciosprestados);
+            modelo.put("serviciosPrestados", serviciosPrestados);
             modelo.put("idFoto", idFoto);
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
@@ -121,8 +121,12 @@ public class PrestadorController {
         }
         modelo.put("Exito", "Se modifico");
         modelo.put("descripcion", "El prestador del servicio se modifico con exito");
-        return "index.html";
+        return "redirect:/prestador/inicio";
 
     }
 
+    @GetMapping("/inicio-usuario")
+    public String inicio() {
+        return "inicio-usuario.html";
+    }
 }
