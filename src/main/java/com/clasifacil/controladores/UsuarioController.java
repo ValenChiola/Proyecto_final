@@ -1,8 +1,10 @@
 
 package com.clasifacil.controladores;
 
-import com.clasifacil.service.NotificacionService;
+import com.clasifacil.entidades.Zona;
+import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,12 +20,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @Autowired
-    private NotificacionService notificaionService;
+   @Autowired
+   private ZonaRepositorio zonaRepositorio;
 
     @GetMapping("/registro")
-    public String registro() {
-        notificaionService.enviar("Bienvenido a Clasifacil! Estamos muy contentos de que nos hayas elegido.", "Registro", "tinochiola06@gmail.com");
+    public String registro(ModelMap modelo) {
+        List<Zona> zonas = zonaRepositorio.findAll();
+        modelo.put("zonas",zonas);
         return "registro-usuario.html";
     }
 
@@ -35,7 +38,7 @@ public class UsuarioController {
 
         try {
             usuarioService.registrar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
-
+        
         } catch (Error e) {
             modelo.put("error", e.getMessage());
             modelo.put("dni", dni);
