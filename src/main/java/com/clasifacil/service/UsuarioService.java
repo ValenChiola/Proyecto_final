@@ -209,4 +209,9 @@ public class UsuarioService implements UserDetailsService {
             return user;
         }
     }
+    
+    @Transactional
+    public List<Usuario> listarTodos(){
+        return ur.listarTodos();
+    }
 }
