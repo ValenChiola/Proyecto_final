@@ -84,7 +84,8 @@ public class PrestadorService implements UserDetailsService{
         Prestador prestador = pres.get();
 
         prestador.setCuit(cuit);
-        prestador.setNombre(nombre);
+        //Pongo un comentario para que se pueda subir
+        prestador.setNombre(nombre); 
         prestador.setApellido(apellido);
         prestador.setMail(mail);
         prestador.setClave(clave);

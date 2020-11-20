@@ -1,8 +1,10 @@
 package com.clasifacil.service;
 
+import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Roles;
+import com.clasifacil.repositorios.PrestadorRepositorio;
 import com.clasifacil.repositorios.UsuarioRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private NotificacionService notificaionService;
+
+    @Autowired
+    private PrestadorRepositorio prestadorRepositorio;
 
     @Transactional
     public void registrar(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2, String idZona) throws Error {
@@ -141,22 +146,39 @@ public class UsuarioService implements UserDetailsService {
         Usuario u = ur.buscarPorMail(mail);
 
         if (u == null) {
-            return null;
+            Prestador p = prestadorRepositorio.buscarPrestadorPorMail(mail);
+            if (p == null) {
+                return null;
+            } else {
+                List<GrantedAuthority> permisos = new ArrayList<>();
+
+                GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_PRESTADOR");
+                permisos.add(p1);
+
+                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+                HttpSession session = attr.getRequest().getSession(true);
+                session.setAttribute("prestadorsession", p);
+
+                User user = new User(p.getMail(), p.getClave(), permisos);
+
+                return user;
+            }
+        } else {
+
+            List<GrantedAuthority> permisos = new ArrayList<>();
+
+            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + u.getRol());
+            permisos.add(p1);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", u);
+
+            User user = new User(u.getMail(), u.getClave(), permisos);
+
+            return user;
         }
-
-        List<GrantedAuthority> permisos = new ArrayList<>();
-
-        GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + u.getRol());
-        permisos.add(p1);
-
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-
-        HttpSession session = attr.getRequest().getSession(true);
-        session.setAttribute("usuariosession", u);
-
-        User user = new User(u.getMail(), u.getClave(), permisos);
-
-        return user;
     }
-
 }

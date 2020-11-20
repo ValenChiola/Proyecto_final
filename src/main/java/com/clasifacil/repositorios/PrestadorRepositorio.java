@@ -18,13 +18,12 @@ import org.springframework.stereotype.Repository;
  *
  * @author Estela
  */
+public interface PrestadorRepositorio extends JpaRepository<Prestador, String> {
 
-public interface PrestadorRepositorio extends JpaRepository<Prestador, String>{
-
-    
-     @Query("SELECT u FROM Prestador u WHERE u.cuit LIKE :cuit")
+    @Query("SELECT u FROM Prestador u WHERE u.cuit LIKE :cuit")
     public Prestador buscarPrestadorPorCuit(@Param("cuit") String cuit);
 
-    
-    
+    @Query("SELECT u FROM Prestador u WHERE u.mail LIKE :mail")
+    public Prestador buscarPrestadorPorMail(@Param("mail") String mail);
+
 }
