@@ -53,31 +53,41 @@
   
 <div id="formularioUsuario" class="col-lg-4 ml-auto">   
     <h4>Registro Usuario</h4>
-    <form action="/registro-usuario" method="POST" class="container d-flex align-items-center flex-column" id="registro-usuario" enctype="multipart/form-data">
+    <form action="/usuario/registrar" method="POST" class="container d-flex align-items-center flex-column" id="registro-usuario" enctype="multipart/form-data">
         <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
         <div class="container d-flex align-items-center flex-column">
             <label for="Documento">Documento*</label>
-            <input type="number" class="input" name="documento" placeholder="Documento" >
+            <input type="number" class="input" name="dni" th:value="${dni}" th:text="${dni}"  placeholder="Documento" >
         </div>
         <div class="container d-flex align-items-center flex-column">
             <label for="Nombre" >Nombre*</label>
-            <input type="text" class="input input-text" name="nombre" required placeholder="Nombre" >
+            <input type="text" class="input input-text" name="nombre" th:value="${nombre}" th:text="${nombre}" required placeholder="Nombre" >
         </div>
         <div class="container d-flex align-items-center flex-column">
             <label for="Apellido">Apellido*</label>
-            <input type="text" class="input" name="apellido" required placeholder="Apellido"> 
+            <input type="text" class="input" name="apellido" th:value="${apellido}" th:text="${apellido}" required placeholder="Apellido"> 
         </div>
         <div class="container d-flex align-items-center flex-column">
             <label for="Telefono">Teléfono*</label>
-            <input type="number" class="input" name="telefono" placeholder="Telefono">
+            <input type="number" class="input" name="telefono" th:value="${telefono}" th:text="${telefono}" placeholder="Telefono">
         </div>
         <div class="container d-flex align-items-center flex-column">
             <label for="Mail">Mail*</label>
-            <input type="text" class="input" name="mail" placeholder="mail">
+            <input type="text" class="input" name="mail" th:value="${mail}" th:text="${mail}" placeholder="mail">
         </div>
         <div class="container d-flex align-items-center flex-column">
-            <label for="clave" class="clave">Clave*</label>
-            <input type="password" class="input" name="clave" pattern=".{8,}" placeholder="Al menos 8 dígitos">
+            <label for="Zona">Zona*</label>
+            <select  name="idZona"> 
+                <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
+            </select>    
+        </div>
+        <div class="container d-flex align-items-center flex-column">
+            <label for="clave" >Clave*</label>
+            <input type="password" class="input" name="clave1" pattern=".{6,}" th:value="${clave1}" th:text="${clave1}" placeholder="Al menos 6 dígitos">
+        </div>
+        <div class="container d-flex align-items-center flex-column">
+            <label for="clave2" >Repetir Clave*</label>
+            <input type="password" class="input" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
         </div>
         <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
     </form>
