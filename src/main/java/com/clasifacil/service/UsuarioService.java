@@ -102,6 +102,34 @@ public class UsuarioService implements UserDetailsService {
         }
     }
 
+    @Transactional
+    public void modificarUsuario(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2,
+            String idZona) throws Error {
+
+        validar(dni, nombre, apellido, mail, telefono,clave1, clave2, idZona);
+
+        Optional<Usuario> us = ur.findById(dni);
+         Usuario usuario= us.get();
+
+        usuario.setDni(dni);
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setMail(mail);
+        usuario.setTelefono(telefono);
+        usuario.setClave(clave1);
+        usuario.setClave(clave2);
+
+        Optional<Zona> zona = zr.findById(idZona);
+        if (zona.isPresent()) {
+            Zona z = zona.get();
+            usuario.setZona(z);
+        } else {
+            throw new Error("No se encontro la zona");
+        }
+        ur.save(usuario);
+
+    }
+
     private void validar(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2, String idZona) throws Error {
 
         if (dni == null || dni.trim().isEmpty()) {
