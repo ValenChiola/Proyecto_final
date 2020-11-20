@@ -1,14 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.clasifacil.controladores;
 
-/**
- *
- * @author Estela
- */
+import com.clasifacil.repositorios.VotoRepositorio;
+import com.clasifacil.service.PrestadorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/votar")
 public class VotoController {
-    
+
+@Autowired
+private VotoRepositorio votoRepositorio;
+@Autowired
+private PrestadorService prestadorService;
+
+
 }
