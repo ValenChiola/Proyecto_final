@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.clasifacil.service;
-
-import org.springframework.stereotype.Service;
+package com.clasifacil.enums;
 
 /**
  *
- * @author Estela
+ * @author Usuario
  */
-
-public class PrestacionService {
-    
+public enum Valoraciones {
+    MALA,
+    REGULAR,
+    BUENA,
+    MUY_BUENA,
+    EXCELENTE
 }
