@@ -134,7 +134,7 @@ public class UsuarioController {
         return "redirect:/usuario/inicio";
     }
     
-    @GetMapping("/inicio-usuario")
+    @GetMapping("/inicio")
     public String inicio(){
         return "inicio-usuario.html";
     }
@@ -144,6 +144,6 @@ public class UsuarioController {
         List<Prestador> prestadores = prestadorRepositorio.listarPorRubro(rubro);
         modelo.put("prestadores", prestadores);
         
-        return "redirect:/usuario/inicio-usuario";
+        return "redirect:/usuario/inicio";
     }
 }
