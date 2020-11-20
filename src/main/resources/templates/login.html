@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="es"  xmlns:th="https://www.thymeleaf.org">
-    
+
 
     <head>
         <meta charset="utf-8" />
@@ -13,8 +13,8 @@
 
         <link rel="icon" type="image/png" sizes="35x35" href="/img/iconologo.png" />
 
-		<link rel="manifest" href="/site.webmanifest">
-		
+        <link rel="manifest" href="/site.webmanifest">
+
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -23,61 +23,46 @@
         <!-- Core theme CSS (includes Bootstrap)-->
 
         <link href="/css/styles.css" rel="stylesheet" />
-        
+
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/img/logo_clasifacil.png" width="180" height="65" /></a>
 
- 
+
                 <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menú
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Iniciar Sesión</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Registrarse</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-      <header class="masthead bg-primary text-white text-center">
-          <div class="container d-flex align-items-center flex-column">
-            <form>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Dirección de Email</label>
-                <input type="text" class="form-control" name="email" id="exampleInputEmail1" placeholder="Email">
-              <small id="emailHelp1" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más</small> </div>
-              <div class="form-group">
-                <label for="clave" class="clave">Password</label>
-				  <input type="password" class="form-control" name="clave" pattern=".{8,}" placeholder="Password">
-                
-              </div>
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div>
-              <button type="submit" class="btn btn-xl btn-outline-light">Ingresar&nbsp;</button>
-            </form>
-			   
-			  
-			  
-			  
-		  </div>
-	</header>
-		
-		
-		
-		
-		<footer class="footer text-center">
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <form action="/logincheck" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Dirección de Mail</label>
+                        <input type="text" class="form-control" name="mail" th:value="${mail}" id="exampleInputEmail1" placeholder="Mail">
+                        <small id="emailHelp1" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más</small> </div>
+                    <div class="form-group">
+                        <label for="clave" class="clave">Password</label>
+                        <input type="password" class="form-control" name="clave" th:value="${clave1}" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-xl btn-outline-light">Ingresar&nbsp;</button>
+                </form>
+            </div>
+        </header>
+        <footer class="footer text-center">
             <div class="container">
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                       
+
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
@@ -85,10 +70,10 @@
                         <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
                         <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                      
+
                     </div>
                     <!-- Footer About Text-->
-                    
+
                 </div>
             </div>
         </footer>
@@ -104,15 +89,15 @@
 
 
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-</body>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <script src="assets/mail/jqBootstrapValidation.js"></script>
+        <script src="assets/mail/contact_me.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
