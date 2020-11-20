@@ -39,7 +39,6 @@ public class UsuarioController {
 
         try {
             usuarioService.registrar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
-
         } catch (Error e) {
             modelo.put("error", e.getMessage());
             modelo.put("dni", dni);
