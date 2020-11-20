@@ -182,6 +182,7 @@ public class UsuarioService implements UserDetailsService {
 
                 HttpSession session = attr.getRequest().getSession(true);
                 session.setAttribute("prestadorsession", p);
+                session.setAttribute("role", "prestador");
 
                 User user = new User(p.getMail(), p.getClave(), permisos);
 
@@ -198,6 +199,7 @@ public class UsuarioService implements UserDetailsService {
 
             HttpSession session = attr.getRequest().getSession(true);
             session.setAttribute("usuariosession", u);
+            session.setAttribute("role", "usuario");
 
             User user = new User(u.getMail(), u.getClave(), permisos);
             System.out.println(u.getRol());
@@ -221,11 +223,11 @@ public class UsuarioService implements UserDetailsService {
             throw new Error("No se ha encontrado el usuairo solicitado.");
         }
     }
-    
+
     @Transactional
-    public void upgrade(String dni){
+    public void upgrade(String dni) {
         Usuario u = ur.getOne(dni);
-        
+
         u.setRol(Roles.ADMIN);
         ur.save(u);
     }

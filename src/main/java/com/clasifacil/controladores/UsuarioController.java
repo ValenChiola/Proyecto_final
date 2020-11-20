@@ -128,4 +128,9 @@ public class UsuarioController {
         modelo.put("exito", "Te has registrado existosamente");
         return "redirect:/usuario/inicio";
     }
+    
+    @GetMapping("/inicio-usuario")
+    public String inicio(){
+        return "inicio-usuario.html";
+    }
 }
