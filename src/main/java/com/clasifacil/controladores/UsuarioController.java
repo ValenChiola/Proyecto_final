@@ -39,7 +39,6 @@ public class UsuarioController {
 
         try {
             usuarioService.registrar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
-
         } catch (Error e) {
             modelo.put("error", e.getMessage());
             modelo.put("dni", dni);
@@ -128,5 +127,10 @@ public class UsuarioController {
 
         modelo.put("exito", "Te has registrado existosamente");
         return "redirect:/usuario/inicio";
+    }
+    
+    @GetMapping("/inicio-usuario")
+    public String inicio(){
+        return "inicio-usuario.html";
     }
 }

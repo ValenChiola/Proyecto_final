@@ -51,6 +51,7 @@ public class PrestadorService implements UserDetailsService{
 
         prestador.setCuit(cuit);
         prestador.setNombre(nombre);
+        prestador.setApellido(apellido);
         prestador.setMail(mail);
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         prestador.setClave(encriptada);
