@@ -47,56 +47,70 @@
         </nav>
 
         <!-- Registro Ususario-->
-
         <header class="masthead bg-primary text-white text-center">
-                <a href="/prestador/registro">Registrate como prestador de servicios</a>
-                <h4>Registro Usuario</h4>
-                <form action="/usuario/registrar" method="POST" class="container d-flex align-items-center flex-column" id="registro-usuario" enctype="multipart/form-data">
-                    <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
-                    <div class="form-group">
-                        <label for="Documento">Documento*</label>
-                        <input type="number" class="form-control" name="dni" th:value="${dni}" placeholder="Documento" >
-                    </div>
-                    <div class="form-group">
-                        <label for="Nombre" >Nombre*</label>
-                        <input type="text" class="form-control" name="nombre" th:value="${nombre}" required placeholder="Nombre" >
-                    </div>
-                    <div class="form-group">
-                        <label for="Apellido">Apellido*</label>
-                        <input type="text" class="form-control" name="apellido" th:value="${apellido}" required placeholder="Apellido"> 
-                    </div>
-                    <div class="form-group">
-                        <label for="Telefono">Teléfono*</label>
-                        <input type="number" class="form-control" name="telefono" th:value="${telefono}"  placeholder="Telefono">
-                    </div>
-                    <div class="form-group">
-                        <label for="Mail">Mail*</label>
-                        <input type="text" class="form-control" name="mail" th:value="${mail}"  placeholder="mail">
-                    </div>
-                    <div class="form-group">
-                        <label for="Zona">Zona*</label>
-                        <select class="custom-select" name="idZona"> 
-                            <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
-                        </select>    
-                    </div>
-                    <div class="form-group">
-                        <label for="clave" >Clave*</label>
-                        <input type="password" class="form-control" name="clave1" pattern=".{6,}" th:value="${clave1}" th:text="${clave1}" placeholder="Al menos 6 dígitos">
-                    </div>
-                    <div class="form-group">
-                        <label for="clave2" >Repetir Clave*</label>
-                        <input type="password" class="form-control" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
-                    </div>
-                    <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
-                </form>
-             
 
-            <!-- Registro Proveedor-->
-
-
-
+            <a href="/usuario/registro">Registrate como usuario</a>
+            <h4>Registro Prestador</h4>
+            <form action="/prestador/registrar" method="POST" class="container d-flex align-items-center flex-column" id="registro-prestador" enctype="multipart/form-data">
+                <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
+                <div class="form-group">
+                    <label for="CUIT">CUIT*</label>
+                    <input type="number" class="form-control" name="cuit" th:value="${cuit}" placeholder="CUIT" >
+                </div>
+                <div class="form-group">
+                    <label for="Nombre" >Nombre*</label>
+                    <input type="text" class="form-control" name="nombre"  th:value="${nombre}" placeholder="Nombre" >
+                </div>
+                <div class="form-group">
+                    <label for="Apellido">Apellido*</label>
+                    <input type="text" class="form-control" name="apellido" th:value="${apellido}" placeholder="Apellido"> 
+                </div>
+                <div class="form-group">
+                    <label for="Telefono">Teléfono*</label>
+                    <input type="number" class="form-control" name="telefono" th:value="${telefono}" placeholder="Telefono">
+                </div>
+                <div class="form-group">
+                    <label for="Mail">Mail*</label>
+                    <input type="text" class="form-control" name="mail" th:value="${mail}" placeholder="mail">
+                </div>
+                <div class="form-group">
+                    <label for="Servicios">Servicios Prestados*</label>
+                    <input type="text" class="form-control" name="serviciosPrestados" th:value="${serviciosPrestados}" placeholder="Servicios Prestados">
+                </div>
+                <div class="form-group">
+                    <label for="Servicios">Descripción Laboral*</label>
+                    <textarea type="text" class="form-control" name="descripcion" th:value="${descripcion}" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Foto">Foto*</label>
+                    <input type="file" class="form-control" name="foto" th:value="${foto}" >
+                </div>
+                <div class="form-group">
+                    <label for="Rubro">Especialización*</label>
+                    <select class="custom-select" name="rubro">
+                        <option th:each="rubro : ${T(com.clasifacil.enums.Rubros).values()}" 
+                                th:value="${rubro}" th:text="${rubro}" class="form-control"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Zona">Zona*</label>
+                    <select  class="custom-select" name="idZona"> 
+                        <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}" ></option>
+                    </select>    
+                </div>
+                <div class="form-group">
+                    <label for="clave" class="clave">Clave*</label>
+                    <input type="password" class="form-control" name="clave" th:value="${clave}" pattern=".{6,}" placeholder="Al menos 6 dígitos">
+                </div>
+                <div class="form-group">
+                    <label for="clave" class="clave">Repetir Clave*</label>
+                    <input type="password" class="form-control" name="clave2" th:value="${clave2}" pattern=".{6,}" placeholder="Al menos 6 dígitos">
+                </div>
+                <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
+            </form>
 
         </header>
+
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
