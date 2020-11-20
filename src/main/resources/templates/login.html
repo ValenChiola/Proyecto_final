@@ -24,7 +24,6 @@
 
         <link href="/css/styles.css" rel="stylesheet" />
 
-
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -38,66 +37,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Iniciar Sesión</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Registrarse</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <!-- Registro Ususario-->
-
         <header class="masthead bg-primary text-white text-center">
-
-            <div id="formularioUsuario" class="col-lg-4 ml-auto"> 
-                <a href="/prestador/registro">Registrate como prestador de servicios</a>
-                <h4>Registro Usuario</h4>
-                <form action="/usuario/registrar" method="POST" class="container d-flex align-items-center flex-column" id="registro-usuario" enctype="multipart/form-data">
-                    <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Documento">Documento*</label>
-                        <input type="number" class="input" name="dni" th:value="${dni}" placeholder="Documento" >
+            <div class="container d-flex align-items-center flex-column">
+                <form action="/logincheck" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Dirección de Mail</label>
+                        <input type="text" class="form-control" name="mail" th:value="${mail}" id="exampleInputEmail1" placeholder="Mail">
+                        <small id="emailHelp1" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más</small> </div>
+                    <div class="form-group">
+                        <label for="clave" class="clave">Password</label>
+                        <input type="password" class="form-control" name="clave" th:value="${clave1}" placeholder="Password">
                     </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Nombre" >Nombre*</label>
-                        <input type="text" class="input input-text" name="nombre" th:value="${nombre}" required placeholder="Nombre" >
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Apellido">Apellido*</label>
-                        <input type="text" class="input" name="apellido" th:value="${apellido}" required placeholder="Apellido"> 
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Telefono">Teléfono*</label>
-                        <input type="number" class="input" name="telefono" th:value="${telefono}"  placeholder="Telefono">
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Mail">Mail*</label>
-                        <input type="text" class="input" name="mail" th:value="${mail}"  placeholder="mail">
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="Zona">Zona*</label>
-                        <select  name="idZona"> 
-                            <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
-                        </select>    
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="clave" >Clave*</label>
-                        <input type="password" class="input" name="clave1" pattern=".{6,}" th:value="${clave1}" th:text="${clave1}" placeholder="Al menos 6 dígitos">
-                    </div>
-                    <div class="container d-flex align-items-center flex-column">
-                        <label for="clave2" >Repetir Clave*</label>
-                        <input type="password" class="input" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
-                    </div>
-                    <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
+                    <button type="submit" class="btn btn-xl btn-outline-light">Ingresar&nbsp;</button>
                 </form>
-            </div>  
-
-            <!-- Registro Proveedor-->
-
-
-
-
+            </div>
         </header>
         <footer class="footer text-center">
             <div class="container">

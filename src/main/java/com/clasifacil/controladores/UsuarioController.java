@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.clasifacil.controladores;
 
+import com.clasifacil.entidades.Zona;
+import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,23 +16,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioService usuarioService;
-    
+
+   @Autowired
+   private ZonaRepositorio zonaRepositorio;
+
     @GetMapping("/registro")
-    public String registro(){
+    public String registro(ModelMap modelo) {
+        List<Zona> zonas = zonaRepositorio.findAll();
+        modelo.put("zonas",zonas);
         return "registro-usuario.html";
     }
-    
+
     @PostMapping("/registrar")
     public String registrar(ModelMap modelo, @RequestParam String dni,
-            @RequestParam String nombre,@RequestParam String apellido,@RequestParam String mail,
-            @RequestParam String telefono,@RequestParam String clave1,@RequestParam String clave2,
-            @RequestParam String idZona) throws Error{
-        
+            @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
+            @RequestParam String telefono, @RequestParam String clave1, @RequestParam String clave2,
+            @RequestParam String idZona) throws Error {
+
         try {
-            
             usuarioService.registrar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
         
         } catch (Error e) {
@@ -46,11 +49,11 @@ public class UsuarioController {
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
             modelo.put("idZona", idZona);
-            
-            return "registro-usuario.html";
-        
+
+            return registro(modelo);
+
         }
-        
+
         modelo.put("exito", "Te has registrado existosamente");
         return "index.html";
     }
