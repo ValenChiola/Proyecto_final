@@ -46,7 +46,7 @@ public class UsuarioService implements UserDetailsService {
         if (!respuesta.isPresent()) {
             if (respuesta2 == null) {
                 if (respuestaZ.isPresent()) {
-                    Usuario u = respuesta.get();
+                    Usuario u = new Usuario();
                     Zona z = respuestaZ.get();
 
                     u.setDni(dni);
@@ -68,7 +68,7 @@ public class UsuarioService implements UserDetailsService {
         } else {
             throw new Error("Ya existe un Usuario con ese DNI.");
         }
-        notificaionService.enviar("Bienvenido a Clasifacil! Estamos muy contentos de que nos hayas elegido.", "Registro", mail);
+//        notificaionService.enviar("Bienvenido a Clasifacil! Estamos muy contentos de que nos hayas elegido.", "Registro", mail);
     }
 
     @Transactional

@@ -50,7 +50,7 @@ public class UsuarioController {
             modelo.put("clave2", clave2);
             modelo.put("idZona", idZona);
 
-            return "registro-usuario.html";
+            return registro(modelo);
 
         }
 
