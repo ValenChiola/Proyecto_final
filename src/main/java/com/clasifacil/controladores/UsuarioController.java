@@ -134,6 +134,7 @@ public class UsuarioController {
         return "redirect:/usuario/inicio";
     }
     
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo){
         List<Prestador> prestadores = prestadorRepositorio.findAll();

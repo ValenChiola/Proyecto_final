@@ -17,9 +17,9 @@ public class ResolverController {
         String rol = (String) session.getAttribute("role");
         
         if(rol.equals("prestador")){
-            return new RedirectView("/prestador/inicio-prestador");
+            return new RedirectView("/prestador/inicio");
         }else{
-            return new RedirectView("/usuario/inicio-usuario");
+            return new RedirectView("/usuario/inicio");
         }
     }
 }
