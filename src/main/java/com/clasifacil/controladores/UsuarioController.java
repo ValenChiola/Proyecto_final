@@ -135,7 +135,9 @@ public class UsuarioController {
     }
     
     @GetMapping("/inicio")
-    public String inicio(){
+    public String inicio(ModelMap modelo){
+        List<Prestador> prestadores = prestadorRepositorio.findAll();
+        modelo.put("prestadores", prestadores);
         return "inicio-usuario.html";
     }
     

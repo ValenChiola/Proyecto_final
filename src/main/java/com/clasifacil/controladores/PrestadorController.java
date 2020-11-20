@@ -125,8 +125,8 @@ public class PrestadorController {
 
     }
 
-    @GetMapping("/inicio-usuario")
+    @GetMapping("/inicio")
     public String inicio() {
-        return "inicio-usuario.html";
+        return "inicio-prestador.html";
     }
 }
