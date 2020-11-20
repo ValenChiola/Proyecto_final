@@ -39,7 +39,7 @@ public class PrestadorService {
     public void registrar(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
             String idZona, Integer serviciosprestados, String idFoto, String descripcion,Rubros rubro) throws Error {
         
-        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion);
+        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion, rubro);
         Prestador prestador = new Prestador();
         
         prestador.setCuit(cuit);
@@ -74,9 +74,9 @@ public class PrestadorService {
     
     @Transactional
     public void ModificarPrestador(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
-            String idZona, Integer serviciosprestados, String idFoto, String descripcion) throws Error {
+            String idZona, Integer serviciosprestados, String idFoto, String descripcion, Rubros rubro) throws Error {
         
-        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion);
+        validar(cuit, nombre, apellido, mail, clave, clave2, telefono, serviciosprestados, descripcion, rubro);
         
 
         Optional<Prestador> pres = pr.findById(cuit);
@@ -126,7 +126,7 @@ public class PrestadorService {
     
 
     public void validar(String cuit, String nombre, String apellido, String mail, String clave,
-             String clave2, String telefono, Integer serviciosprestados, String descripcion) {
+             String clave2, String telefono, Integer serviciosprestados, String descripcion, Rubros rubro) {
         
         if (cuit == null || cuit.isEmpty()) {
             throw new Error("Debe indicar el Cuit.");
@@ -165,6 +165,10 @@ public class PrestadorService {
         
         if (serviciosprestados == null) {
             throw new Error("Los servicios prestados no pueden ser nulos.");
+        }
+        
+        if (rubro == null) {
+            throw new Error("El rubro no puedee ser nulo.");
         }
         
     }
