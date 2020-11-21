@@ -68,7 +68,7 @@
                     <td th:text="${p.descripcion}"></td>
                 </h6>
             </tr>
-            <a href="#">Leer más</a><a href="#" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+            <a href="#">Leer más</a><a sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
         </div>
     </div>
     </div>
