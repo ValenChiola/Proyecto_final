@@ -102,7 +102,7 @@ public class UsuarioController {
     }
     
     @GetMapping("/modificar")
-    public String modificarUsuario(ModelMap modelo, HttpSession session, @RequestParam String dni) {
+    public String modificar(ModelMap modelo, HttpSession session, @RequestParam String dni) {
         List<Zona> zonas = zonaRepositorio.findAll();
         modelo.put("zonas", zonas);
         
@@ -135,7 +135,7 @@ public class UsuarioController {
             modelo.put("clave2", clave2);
             modelo.put("idZona", idZona);
             
-            return modificarUsuario(modelo,session,dni);
+            return modificar(modelo,session,dni);
             
         }
         
