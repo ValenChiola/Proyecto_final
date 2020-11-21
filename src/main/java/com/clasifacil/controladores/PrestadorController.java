@@ -1,11 +1,13 @@
 package com.clasifacil.controladores;
 
+import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Rubros;
 import com.clasifacil.repositorios.PrestadorRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.PrestadorService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -76,9 +78,12 @@ public class PrestadorController {
     }
 
     @GetMapping("/modificar")
-    public String modificarPrestador(ModelMap modelo) {
+    public String modificarPrestador(ModelMap modelo,HttpSession session,@RequestParam String cuit) {
         List<Zona> zonas = zonaRepositorio.findAll();
         modelo.put("zonas", zonas);
+        
+        Prestador p = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
+        modelo.addAttribute("perfil", p);
         return "modificar-prestador.html";
     }
 
@@ -94,12 +99,16 @@ public class PrestadorController {
             @RequestParam String idZona,
             @RequestParam String idFoto,
             @RequestParam String descripcion,
-            @RequestParam Rubros rubro) {
+            @RequestParam Rubros rubro,
+            HttpSession session) {
 
         try {
             prestadorService.ModificarPrestador(cuit, nombre,
                     apellido, mail, clave, clave2, telefono,
                     idZona, idFoto, descripcion, rubro);
+            
+            Prestador p = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
+            session.setAttribute("prestadorsession", p);
 
         } catch (Error ex) {
             modelo.put("error", ex.getMessage());
@@ -115,7 +124,7 @@ public class PrestadorController {
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
 
-            return modificarPrestador(modelo);
+            return modificarPrestador(modelo,session,cuit);
         }
         modelo.put("Exito", "Se modifico");
         modelo.put("descripcion", "El prestador del servicio se modifico con exito");
