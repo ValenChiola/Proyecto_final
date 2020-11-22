@@ -159,8 +159,8 @@ public class PrestadorService implements UserDetailsService{
             throw new Error("Las claves deben ser iguales.");
         }
 
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new Error("La descripcion no puede estar vacia.");
+        if (descripcion == null || descripcion.trim().isEmpty() || descripcion.length() > 57) {
+            throw new Error("La descripcion no puede estar vacia y no puede superar los 57 caracteres.");
         }
 
         if (rubro == null) {
