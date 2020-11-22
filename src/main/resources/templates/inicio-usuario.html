@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>ClasiFácil</title>
-    <!-- Favicon-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>ClasiFácil</title>
+        <!-- Favicon-->
 
-    <link rel="icon" type="image/png" sizes="35x35" href="/img/iconologo.png" />
-    <link rel="manifest" href="/site.webmanifest">
+        <link rel="icon" type="image/png" sizes="35x35" href="/img/iconologo.png" />
+        <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+              type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
 
-    <link href="/css/styles.css" rel="stylesheet" />
-
-
-</head>
-<!-- Barra de opciones(agregar buscador y boton salir )-->
-
-<body id="page-top">
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/img/logo_clasifacil.png" width="180"
-                    height="65" /></a>
+        <link href="/css/styles.css" rel="stylesheet" />
 
 
-            <button
-                class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
-                type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-                Menú
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                            href="#" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                            href="/logout">Salir</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                            href="/votar">Votar</a></li>
-                </ul>
+    </head>
+    <!-- Barra de opciones(agregar buscador y boton salir )-->
+
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/img/logo_clasifacil.png" width="180"
+                                                                                height="65" /></a>
+
+
+                <button
+                    class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded"
+                    type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    Menú
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                             href="#" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                             href="/logout">Salir</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                             href="/votar">Votar</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    <div class="container2">
-        <div class="card" th:each="p : ${prestadores}">
-            <tr>
-                <!-- <img th:src="${p.foto.contenido} " /> -->
+        </nav>
+        <div class="container2">
+            <div class="card" th:each="p : ${prestadores}">
+                <tr>
+                    <!-- <img th:src="${p.foto.contenido} " /> -->
                 <img th:src="@{__${p.foto.id}__}" alt="">
                 <h4>
                     <td th:text="${p.nombre}"></td>
@@ -67,10 +67,13 @@
                 <h6>
                     <td th:text="${p.descripcion}"></td>
                 </h6>
-            </tr>
-            <a href="#">Leer más</a><a sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+                </tr>
+                <div class="options">
+                    <a style="color: white;" class="btn btn-info" href="#">Leer más</a>
+                    <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 
     <footer class="footer text-center">
