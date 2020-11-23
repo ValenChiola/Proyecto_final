@@ -169,6 +169,11 @@ public class PrestadorService implements UserDetailsService{
 
     }
 
+    @Transactional
+    public List<Prestador> listarPorRubro(String rubro){
+        return pr.listarPorRubro(rubro);
+    }
+    
     @Override
     public UserDetails loadUserByUsername(String cuit) throws UsernameNotFoundException {
 
