@@ -26,7 +26,7 @@ public interface PrestadorRepositorio extends JpaRepository<Prestador, String> {
     @Query("SELECT u FROM Prestador u WHERE u.mail LIKE :mail")
     public Prestador buscarPrestadorPorMail(@Param("mail") String mail);
     
-    @Query("SELECT p FROM Prestador p WHERE p.rubro LIKE :rubro")
+    @Query("SELECT p FROM Prestador p WHERE CAST(p.rubro AS string) LIKE :rubro")
     public List<Prestador> listarPorRubro(@Param("rubro") String rubro);
 
 }
