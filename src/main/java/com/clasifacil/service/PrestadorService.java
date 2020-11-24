@@ -131,6 +131,11 @@ public class PrestadorService implements UserDetailsService{
         if (cuit == null || cuit.isEmpty()) {
             throw new Error("Debe indicar el Cuit.");
         }
+        
+        if(cuit.length() != 13 || !cuit.contains("-")){
+            throw new Error("Debe ingresae un cuit válido.");
+        }
+        
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new Error("Debe indicar el nombre.");
         }
@@ -200,4 +205,15 @@ public class PrestadorService implements UserDetailsService{
         }
 
     }
+    
+//    public int promediar(List<Integer> lista){
+//        int promedio = 0;
+//        int acumulador = 0;
+//        for (Integer i : lista) {
+//            acumulador += i;
+//        }
+//        promedio = acumulador/lista.size();
+//        
+//        return promedio;
+//    }
 }

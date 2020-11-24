@@ -55,28 +55,28 @@
                     <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
                     <div class="form-group">
                         <label for="Documento">Documento*</label>
-                        <input type="number" class="form-control" name="dni" th:value="${dni}" placeholder="Documento" >
+                        <input type="number" class="form-control" name="dni" th:value="${dni}" placeholder="45571915" >
                     </div>
                     <div class="form-group">
                         <label for="Nombre" >Nombre*</label>
-                        <input type="text" class="form-control" name="nombre" th:value="${nombre}" required placeholder="Nombre" >
+                        <input type="text" class="form-control" name="nombre" th:value="${nombre}" required placeholder="Juan" >
                     </div>
                     <div class="form-group">
                         <label for="Apellido">Apellido*</label>
-                        <input type="text" class="form-control" name="apellido" th:value="${apellido}" required placeholder="Apellido"> 
+                        <input type="text" class="form-control" name="apellido" th:value="${apellido}" required placeholder="Pérez"> 
                     </div>
                     <div class="form-group">
                         <label for="Telefono">Teléfono*</label>
-                        <input type="number" class="form-control" name="telefono" th:value="${telefono}"  placeholder="Telefono">
+                        <input type="number" class="form-control" name="telefono" th:value="${telefono}"  placeholder="(prefijo)0000000">
                     </div>
                     <div class="form-group">
                         <label for="Mail">Mail*</label>
-                        <input type="text" class="form-control" name="mail" th:value="${mail}"  placeholder="mail">
+                        <input type="text" class="form-control" name="mail" th:value="${mail}"  pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+ placeholder="juanperez@gmail.com">
                     </div>
                     <div class="form-group">
                         <label for="Zona">Zona*</label>
                         <select class="form-control" style="width: 199px" name="idZona" > 
-                            <option selected="true" disabled="true">Zona</option>
                             <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
                         </select>    
                     </div>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group">
                         <label for="clave2" >Repetir Clave*</label>
-                        <input type="password" class="form-control" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" placeholder="Al menos 6 dígitos">
+                        <input type="password" class="form-control" name="clave2" pattern=".{6,}" th:value="${clave2}" th:text="${clave2}" >
                     </div>
                     <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Registrate </button></div>
                 </form>

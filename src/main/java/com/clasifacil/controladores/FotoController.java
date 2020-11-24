@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
 @RequestMapping("/foto")
 public class FotoController {
 

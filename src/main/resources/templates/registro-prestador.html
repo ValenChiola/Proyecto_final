@@ -55,23 +55,24 @@
                 <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
                 <div class="form-group">
                     <label for="CUIT">CUIT*</label>
-                    <input type="number" class="form-control" name="cuit" th:value="${cuit}" placeholder="CUIT" >
+                    <input type="text" class="form-control" name="cuit" th:value="${cuit}" placeholder="Ej: 20-00000000-9" >
                 </div>
                 <div class="form-group">
                     <label for="Nombre" >Nombre*</label>
-                    <input type="text" class="form-control" name="nombre"  th:value="${nombre}" placeholder="Nombre" >
+                    <input type="text" class="form-control" name="nombre"  th:value="${nombre}" placeholder="Juan" >
                 </div>
                 <div class="form-group">
                     <label for="Apellido">Apellido*</label>
-                    <input type="text" class="form-control" name="apellido" th:value="${apellido}" placeholder="Apellido"> 
+                    <input type="text" class="form-control" name="apellido" th:value="${apellido}" placeholder="Pérez"> 
                 </div>
                 <div class="form-group">
                     <label for="Telefono">Teléfono*</label>
-                    <input type="number" class="form-control" name="telefono" th:value="${telefono}" placeholder="Telefono">
+                    <input type="number" class="form-control" name="telefono" th:value="${telefono}" placeholder="(prefijo)9999999">
                 </div>
                 <div class="form-group">
                     <label for="Mail">Mail*</label>
-                    <input type="text" class="form-control" name="mail" th:value="${mail}" placeholder="mail">
+                    <input type="text" class="form-control" name="mail" th:value="${mail}" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+ placeholder="juanperez@gmail.com">
                 </div>
                 <div class="form-group">
                     <label for="Servicios">Descripción Laboral*</label>
