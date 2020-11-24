@@ -71,7 +71,8 @@
                     </div>
                     <div class="form-group">
                         <label for="Mail">Mail*</label>
-                        <input type="text" class="form-control" name="mail" th:value="${mail}"  placeholder="mail">
+                        <input type="text" class="form-control" name="mail" th:value="${mail}"  pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+ placeholder="mail">
                     </div>
                     <div class="form-group">
                         <label for="Zona">Zona*</label>

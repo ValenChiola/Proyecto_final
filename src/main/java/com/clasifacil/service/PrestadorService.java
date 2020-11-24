@@ -131,6 +131,11 @@ public class PrestadorService implements UserDetailsService{
         if (cuit == null || cuit.isEmpty()) {
             throw new Error("Debe indicar el Cuit.");
         }
+        
+        if(cuit.length() != 13){
+            throw new Error("Debe ingresae un cuit válido.");
+        }
+        
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new Error("Debe indicar el nombre.");
         }
