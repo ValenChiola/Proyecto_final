@@ -158,4 +158,18 @@ public class UsuarioController {
         
         return "redirect:/usuario/inicio";
     }
+    
+    @GetMapping("/{cuit}/details")
+    public String leerMas(ModelMap modelo,@PathVariable("cuit") String cuit){
+        
+        Prestador prestador = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
+        modelo.put("cuit",cuit);
+        modelo.put("nombre",prestador.getNombre());
+        modelo.put("apellido",prestador.getApellido());
+        modelo.put("telefono",prestador.getTelefono());
+        modelo.put("serviciosPrestados",prestador.getServiciosprestados());
+        modelo.put("descripcion",prestador.getDescripcion());
+        
+        return "leer-mas.html";
+    }
 }
