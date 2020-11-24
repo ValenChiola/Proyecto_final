@@ -75,7 +75,8 @@
                     </div>
                     <div class="form-group">
                         <label for="Zona">Zona*</label>
-                        <select class="custom-select" name="idZona"> 
+                        <select class="form-control" style="width: 199px" name="idZona" > 
+                            <option selected="true" disabled="true">Zona</option>
                             <option th:each="zona : ${zonas}" th:value= "${zona.id}" th:text= "${zona.nombre}"></option>
                         </select>    
                     </div>
