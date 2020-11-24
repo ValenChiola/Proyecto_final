@@ -22,7 +22,7 @@ public class VotoController {
     
     @GetMapping("")
     public String voto(){
-        return "voto.hmtl";
+        return "voto.html";
     }
     
     @PostMapping("")
