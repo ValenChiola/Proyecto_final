@@ -154,9 +154,9 @@ public class UsuarioController {
     @GetMapping("/buscar/{rubro}")
     public String buscarPorRubro(ModelMap modelo, @PathVariable("rubro") String rubro) {
         List<Prestador> prestadores = prestadorRepositorio.listarPorRubro(rubro);
-        modelo.put("prestadores", prestadores);
+        modelo.put("prestadoresBuscados", prestadores);
         
-        return "redirect:/usuario/inicio";
+        return "inicio-usuario.html";
     }
     
     @GetMapping("/{cuit}/details")

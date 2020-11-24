@@ -52,8 +52,31 @@
                 </div>
             </div>
         </nav>
-        <div class="container2">
+        <div th:if="${prestadoresBuscados == null}" class="container2">
             <div class="card" th:each="p : ${prestadores}">
+                <label th:text="${p.rubro}"></label>
+                <tr>
+                    <!-- <img th:src="${p.foto.contenido} " /> -->
+                <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/load/} + ${p.foto.id}"/>
+
+                <h4>
+                    <td th:text="${p.nombre}"></td>
+                    <td th:text="${p.apellido}"></td>
+                </h4>
+
+                <h6>
+                    <td th:text="${p.descripcion}"></td>
+                </h6>
+                </tr><br>
+                <div class="options">
+                    <a style="color: white;" class="btn btn-info" th:href="@{/usuario/inicio/} + ${p.cuit} + @{/details}">Leer más</a>
+                    <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+                </div>
+            </div>
+        </div>
+        <div th:if="${prestadoresBuscados != null}" class="container2">
+            <h3 th:if="${prestadoresBuscados.isEmpty()}" >Lo sentimos, no hay prestadores con esa especialización :(</h3>
+            <div class="card" th:each="p : ${prestadoresBuscados}">
                 <label th:text="${p.rubro}"></label>
                 <tr>
                     <!-- <img th:src="${p.foto.contenido} " /> -->
