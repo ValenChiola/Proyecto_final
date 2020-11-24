@@ -19,5 +19,7 @@ public enum Rubros {
     CERRAJERO,
     METALURGICO,
     LIMPIEZA,
+    PINTOR,
+    CARPINENTERO,
     OTROS
 }

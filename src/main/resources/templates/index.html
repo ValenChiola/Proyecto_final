@@ -29,8 +29,6 @@
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/img/logo_clasifacil.png" width="180" height="65" /></a>
-
-
                 <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menú
                     <i class="fas fa-bars"></i>
@@ -64,7 +62,7 @@
             </div>
         </header>
         <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="portfolio">
+        <section th:if="${prestadores == null}" class="page-section portfolio" id="portfolio">
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Categorías&nbsp;</h2>
@@ -80,7 +78,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/PINTOR"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/pintorok.jpg" alt="" />
                         </div>
@@ -89,7 +87,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/LIMPIEZA"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/limpieza.jpg" alt="" />
                         </div>
@@ -98,7 +96,7 @@
                     <div class="col-md-6 col-lg-4 mb-5">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/ELECTRICISTA"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/electricista.jpg" alt="" />
                         </div>
@@ -107,7 +105,7 @@
                     <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/CARPINTERO"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/carpintero.jpg" alt="" />
                         </div>
@@ -116,7 +114,7 @@
                     <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/METALURJICO"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/arreglos.jpg" alt="" />
                         </div>
@@ -125,7 +123,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                                <a href="/MECANICO"><div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div></a>
                             </div>
                             <img class="img-fluid" src="/img/mecanico.jpg" alt="" />
                         </div>
@@ -133,6 +131,33 @@
                 </div>
             </div>
         </section>
+        <div th:if="${prestadores != null}" class="container2">
+            <div>
+                <a href="/" class="btn btn-info stretched-link">Volver</a>
+                <h2 th:if="${prestadores.isEmpty()}">Lo sentimos, no hay prestadores con esa especialización :(</h2>
+            </div>
+            <div class="card" th:each="p : ${prestadores}">
+                <label th:text="${p.rubro}"></label>
+                <tr>
+                    <!-- <img th:src="${p.foto.contenido} " /> -->
+                <img th:src="@{__${p.foto.id}__}" alt="">
+                <!--                <h4>
+                                    <td th:text="${p.nombre}"></td>
+                                    <td th:text="${p.apellido}"></td>
+                                </h4>-->
+                <h5><br>
+                    <td th:text="${p.nombre} + ' ' + ${p.apellido}"></td>
+                </h5>
+                <h6>
+                    <td th:text="${p.descripcion}"></td>
+                </h6>
+            </tr>
+                <div class="options">
+                    <a style="color: white;" class="btn btn-info" href="#">Leer más</a>
+                    <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+                </div>
+            </div>
+        </div>
         <!-- About Section-->
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">

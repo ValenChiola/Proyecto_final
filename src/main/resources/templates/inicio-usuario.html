@@ -54,6 +54,7 @@
         </nav>
         <div class="container2">
             <div class="card" th:each="p : ${prestadores}">
+                <label th:text="${p.rubro}"></label>
                 <tr>
                     <!-- <img th:src="${p.foto.contenido} " /> -->
                 <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/load/} + ${p.foto.id}"/>
@@ -62,15 +63,13 @@
                     <td th:text="${p.nombre}"></td>
                     <td th:text="${p.apellido}"></td>
                 </h4>
-                <h5>
-                    <td th:text="${p.rubro}"></td>
-                </h5>
+
                 <h6>
                     <td th:text="${p.descripcion}"></td>
                 </h6>
-                </tr>
+                </tr><br>
                 <div class="options">
-                    <a style="color: white;" class="btn btn-info" href="#">Leer más</a>
+                    <a style="color: white;" class="btn btn-info" th:href="@{/usuario/inicio/} + ${p.cuit} + @{/details}">Leer más</a>
                     <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
                 </div>
             </div>
