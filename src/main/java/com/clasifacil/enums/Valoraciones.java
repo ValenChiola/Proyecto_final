@@ -10,9 +10,19 @@ package com.clasifacil.enums;
  * @author Usuario
  */
 public enum Valoraciones {
-    MALA,
-    REGULAR,
-    BUENA,
-    MUY_BUENA,
-    EXCELENTE
+    MALA(1),
+    REGULAR(2),
+    BUENA(3),
+    MUY_BUENA(4),
+    EXCELENTE(5);
+    
+    private final Integer valoracion;
+    
+    Valoraciones(Integer valoracion){
+        this.valoracion = valoracion;
+    }
+
+    public Integer getValoracion() {
+        return valoracion;
+    }
 }

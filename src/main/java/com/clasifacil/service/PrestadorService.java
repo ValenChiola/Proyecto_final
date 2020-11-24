@@ -205,4 +205,15 @@ public class PrestadorService implements UserDetailsService{
         }
 
     }
+    
+//    public int promediar(List<Integer> lista){
+//        int promedio = 0;
+//        int acumulador = 0;
+//        for (Integer i : lista) {
+//            acumulador += i;
+//        }
+//        promedio = acumulador/lista.size();
+//        
+//        return promedio;
+//    }
 }
