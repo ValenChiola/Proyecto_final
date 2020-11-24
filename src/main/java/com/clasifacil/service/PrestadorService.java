@@ -132,7 +132,7 @@ public class PrestadorService implements UserDetailsService{
             throw new Error("Debe indicar el Cuit.");
         }
         
-        if(cuit.length() != 13){
+        if(cuit.length() != 13 || !cuit.contains("-")){
             throw new Error("Debe ingresae un cuit válido.");
         }
         
