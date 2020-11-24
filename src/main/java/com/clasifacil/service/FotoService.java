@@ -6,6 +6,7 @@ import com.clasifacil.entidades.Foto;
 import com.clasifacil.repositorios.FotoRepositorio;
 import java.io.IOException;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,4 +64,19 @@ public class FotoService {
         }
         return null;
     }
-}
+    
+    @Transactional
+    public Foto buscar(String Id) throws Error{
+        
+        return fotoRepositorio.getOne(Id);
+       // Optional<Foto> foto = fotoRepositorio.findById(Id);
+//        
+//        if (foto.isPresent()) {
+//            
+//            return foto.get();
+//        } else {
+//            return null;
+//        }
+       
+    }
+    }

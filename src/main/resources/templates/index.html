@@ -140,7 +140,7 @@
                 <label th:text="${p.rubro}"></label>
                 <tr>
                     <!-- <img th:src="${p.foto.contenido} " /> -->
-                <img th:src="@{__${p.foto.id}__}" alt="">
+                <img alt="" class="rounded mx-auto d-block" th:src="@{/foto/load/} + ${p.foto.id}"/>
                 <!--                <h4>
                                     <td th:text="${p.nombre}"></td>
                                     <td th:text="${p.apellido}"></td>
