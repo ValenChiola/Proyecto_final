@@ -137,20 +137,21 @@
                 <h2 th:if="${prestadores.isEmpty()}">Lo sentimos, no hay prestadores con esa especialización :(</h2>
             </div>
             <div class="card" th:each="p : ${prestadores}">
+                <label th:text="${p.rubro}"></label>
                 <tr>
                     <!-- <img th:src="${p.foto.contenido} " /> -->
                 <img th:src="@{__${p.foto.id}__}" alt="">
-                <h4>
-                    <td th:text="${p.nombre}"></td>
-                    <td th:text="${p.apellido}"></td>
-                </h4>
-                <h5>
-                    <td th:text="${p.rubro}"></td>
+                <!--                <h4>
+                                    <td th:text="${p.nombre}"></td>
+                                    <td th:text="${p.apellido}"></td>
+                                </h4>-->
+                <h5><br>
+                    <td th:text="${p.nombre} + ' ' + ${p.apellido}"></td>
                 </h5>
                 <h6>
                     <td th:text="${p.descripcion}"></td>
                 </h6>
-                </tr>
+            </tr>
                 <div class="options">
                     <a style="color: white;" class="btn btn-info" href="#">Leer más</a>
                     <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
