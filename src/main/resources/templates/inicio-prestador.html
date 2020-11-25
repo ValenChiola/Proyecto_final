@@ -65,9 +65,10 @@
             <a href="#" class="list-group-item list-group-item-action">Ver valoracion</a>
             <a href="#" class="list-group-item list-group-item-action">Dar de baja</a>
         </div>
-
+        <img alt="" class="rounded mx-auto d-flex" th:src="@{/foto/load/} + ${session.prestadorsession.foto.id}"/>
+        <h2>Valoración:</h2>
+        <h3 th:text="${session.prestadorsession.valoracion}"></h3>
     </div>
-
     <footer class="footer text-center">
         <div class="container">
             <div class="row">
