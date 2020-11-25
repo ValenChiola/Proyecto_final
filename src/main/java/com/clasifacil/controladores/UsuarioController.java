@@ -170,6 +170,7 @@ public class UsuarioController {
         modelo.put("serviciosPrestados",prestador.getServiciosprestados());
         modelo.put("descripcion",prestador.getDescripcion());
         modelo.put("foto",prestador.getFoto().getId());
+        modelo.put("zona",prestador.getZona());
         
         return "leer-mas.html";
     }
