@@ -77,7 +77,7 @@ public class PrestadorService implements UserDetailsService{
 
     @Transactional
     public void ModificarPrestador(String cuit, String nombre, String apellido, String mail, String clave, String clave2, String telefono,
-            String idZona, String idFoto, String descripcion, Rubros rubro) throws Error {
+            String idZona, MultipartFile archivo, String descripcion, Rubros rubro) throws Error {
 
         validar(cuit, nombre, apellido, mail, clave, clave2, telefono, descripcion, rubro);
 
@@ -93,13 +93,8 @@ public class PrestadorService implements UserDetailsService{
         prestador.setTelefono(telefono);
         prestador.setDescripcion(descripcion);
 
-        Optional<Foto> f = fr.findById(idFoto);
-        if (f.isPresent()) {
-            Foto foto = f.get();
-            prestador.setFoto(foto);
-        } else {
-            throw new Error("No se encontro la foto");
-        }
+        Foto foto = fotoService.guardar(archivo);
+        prestador.setFoto(foto);
 
         Optional<Zona> zona = zr.findById(idZona);
         if (zona.isPresent()) {
