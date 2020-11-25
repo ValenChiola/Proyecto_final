@@ -169,7 +169,15 @@ public class UsuarioController {
         modelo.put("telefono",prestador.getTelefono());
         modelo.put("serviciosPrestados",prestador.getServiciosprestados());
         modelo.put("descripcion",prestador.getDescripcion());
+        modelo.put("foto",prestador.getFoto().getId());
         
         return "leer-mas.html";
+    }
+    
+    @GetMapping("{cuit}")
+    public String eliminar(ModelMap modelo,@PathVariable("cuit") String cuit){
+        prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
+        
+        return inicio(modelo);
     }
 }
