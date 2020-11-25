@@ -24,6 +24,7 @@
 
         <link href="/css/styles.css" rel="stylesheet" />
 
+
     </head>
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -37,27 +38,80 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/login">Iniciar Sesión</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Registrarse</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+
         <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                <form action="/logincheck" method="POST">
-                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Dirección de Mail</label>
-                        <input type="text" class="form-control" name="mail" th:value="${mail}" id="exampleInputEmail1" placeholder="Mail">
-                        <small id="emailHelp1" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más</small> </div>
-                    <div class="form-group">
-                        <label for="clave" class="clave">Contraseña</label>
-                        <input type="password" class="form-control" name="clave" th:value="${clave1}" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-xl btn-outline-light">Ingresar&nbsp;</button>
-                </form>
-            </div>
+            <h4>Modificar Prestador</h4>
+            <form action="/prestador/actualizar" method="POST" class="container d-flex align-items-center flex-column" id="modificar-prestador" enctype="multipart/form-data">
+                <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
+
+                <input type="hidden" name="cuit"  th:value="${perfil.cuit}"/>
+                
+                <div class="form-group">
+                    <label for="Nombre" >Nombre*</label>
+                    <input type="text" class="form-control" name="nombre" required placeholder="Nombre" th:value="${perfil.nombre}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="Apellido">Apellido*</label>
+                    <input type="text" class="form-control" name="apellido" required placeholder="Apellido" th:value="${perfil.apellido}">  
+                </div>
+                
+                <div class="form-group">
+                    <label for="Telefono">Telefono*</label>
+                    <input type="number" class="form-control" name="telefono" placeholder="Telefono" th:value="${perfil.telefono}"> 
+                </div>
+                
+                <div class="form-group">
+                    <label for="Mail">Mail*</label>
+                    <input type="text" class="form-control" name="mail" placeholder="Mail" th:value="${perfil.mail}" >
+                </div>
+                
+                <div class="form-group">
+                    <label for="Foto">Foto*</label>
+                    <input type="file" class="form-control" name="foto" th:value="${perfil.foto}" >
+                </div>
+                
+                <div class="form-group">
+                    <label>Zona</label>
+                    <select class="form-control" name="idZona">
+                        <option th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}"></option> </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Rubro">Especialización*</label>
+                    <select class="custom-select" name="rubro">
+                        <option th:each="rubro : ${T(com.clasifacil.enums.Rubros).values()}" 
+                                th:value="${rubro}" th:text="${rubro}" class="form-control"></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Servicios">Descripción Laboral*</label>
+                    <textarea type="text" class="form-control" name="descripcion" th:value="${perfil.descripcion}" ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clave" class="clave">Clave*</label>
+                    <input type="password" class="form-control" name="clave" pattern=".{6,}" placeholder="Al menos 6 dígitos">
+                </div>
+                
+                <div class="form-group">
+                    <label for="clave" class="clave">Repetir Clave*</label>
+                    <input type="password" class="form-control" name="clave2" pattern=".{6,}" placeholder="Al menos 6 dígitos">
+                </div>
+                
+                <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Modificar </button></div> -->
+            </form>
+
         </header>
+
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
