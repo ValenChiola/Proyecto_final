@@ -78,7 +78,7 @@ public class PrestadorController {
     }
 
     @GetMapping("/modificar")
-    public String modificarPrestador(ModelMap modelo,HttpSession session,@RequestParam String cuit) {
+    public String modificar(ModelMap modelo,HttpSession session,@RequestParam String cuit) {
         List<Zona> zonas = zonaRepositorio.findAll();
         modelo.put("zonas", zonas);
         
@@ -97,7 +97,7 @@ public class PrestadorController {
             @RequestParam String clave2,
             @RequestParam String telefono,
             @RequestParam String idZona,
-            @RequestParam String idFoto,
+            @RequestParam MultipartFile foto,
             @RequestParam String descripcion,
             @RequestParam Rubros rubro,
             HttpSession session) {
@@ -105,7 +105,7 @@ public class PrestadorController {
         try {
             prestadorService.ModificarPrestador(cuit, nombre,
                     apellido, mail, clave, clave2, telefono,
-                    idZona, idFoto, descripcion, rubro);
+                    idZona, foto, descripcion, rubro);
             
             Prestador p = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
             session.setAttribute("prestadorsession", p);
@@ -120,11 +120,11 @@ public class PrestadorController {
             modelo.put("clave2", clave2);
             modelo.put("telefono", telefono);
             modelo.put("idZona", idZona);
-            modelo.put("idFoto", idFoto);
+            modelo.put("foto", foto);
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
 
-            return modificarPrestador(modelo,session,cuit);
+            return modificar(modelo,session,cuit);
         }
         modelo.put("Exito", "Se modifico");
         modelo.put("descripcion", "El prestador del servicio se modifico con exito");
