@@ -70,7 +70,7 @@
                 </tr><br>
                 <div class="options">
                     <a style="color: white;" class="btn btn-info" th:href="@{/usuario/inicio/} + ${p.cuit} + @{/details}">Leer más</a>
-                    <a style="color: white;" class="btn btn-info" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
+                    <a style="color: white;" class="btn btn-info" th:href="@{/usuario/} + ${p.cuit}" sec:authorize="hasAnyRole('ROLE_ADMIN')">Eliminar</a>
                 </div>
             </div>
         </div>

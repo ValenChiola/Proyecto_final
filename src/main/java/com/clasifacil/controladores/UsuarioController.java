@@ -172,4 +172,11 @@ public class UsuarioController {
         
         return "leer-mas.html";
     }
+    
+    @GetMapping("{cuit}")
+    public String eliminar(ModelMap modelo,@PathVariable("cuit") String cuit){
+        prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
+        
+        return inicio(modelo);
+    }
 }
