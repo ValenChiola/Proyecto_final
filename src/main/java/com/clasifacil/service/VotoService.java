@@ -67,7 +67,7 @@ public class VotoService {
             if(prestador1.getValoracion() == null){
                 prestador1.setValoracion(puntaje);
             }else{
-                prestador1.setValoracion((prestador1.getValoracion()+puntaje)/2);
+                prestador1.setValoracion(Math.toIntExact((prestador1.getValoracion()+puntaje)/2));
             }
             
             prestadorRepositorio.save(prestador1);
