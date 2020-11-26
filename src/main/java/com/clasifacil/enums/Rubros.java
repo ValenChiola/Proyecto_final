@@ -20,6 +20,6 @@ public enum Rubros {
     METALURGICO,
     LIMPIEZA,
     PINTOR,
-    CARPINENTERO,
+    CARPINTERO,
     OTROS
 }
