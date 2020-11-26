@@ -130,7 +130,7 @@ public class UsuarioController {
     public String inicio(ModelMap modelo, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("usuariosession");
         if (u.getHabilitado()) {
-            List<Prestador> prestadores = prestadorRepositorio.findAll();
+            List<Prestador> prestadores = prestadorRepositorio.listarTodosPorValoracion();
             modelo.put("prestadores", prestadores);
             return "inicio-usuario.html";
         }else{
