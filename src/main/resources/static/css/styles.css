@@ -248,6 +248,11 @@ label {
     margin-bottom: 0.5rem;
 }
 
+label.zona {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
 button {
     border-radius: 0;
 }
