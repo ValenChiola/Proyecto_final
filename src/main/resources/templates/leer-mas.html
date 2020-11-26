@@ -53,42 +53,38 @@
             <div class="form-group">
 
                 <div class="row">
-                    <div class="col-lg-4 mr-auto"><img alt="" class="rounded mx-auto d-flex" width="600" height="auto" th:src="@{/foto/load/} + ${foto}"/></div>
-                    <div class="masthead-heading text-uppercase mb-0" style="text-align: center; padding-top: 20%; padding-left: 20%;"><h1><label th:text="${nombre}"></label><br>
-                            <label th:text="${apellido}"></label><br>
-                            <label th:text="${rubro}"></label><br></h1></div>
+                    <div class="col-lg-4 mr-auto">
+                        <img alt="" class="rounded mx-auto d-flex" width="600" height="auto" th:src="@{/foto/load/} + ${prestador.foto.id}"/></div>
+                    <div class="masthead-heading text-uppercase mb-0">
+                        <h1 style="text-align: center; padding-top: 20%; padding-left: 20%;"><label th:text="${prestador.nombre}"></label><br>
+                            <label th:text="${prestador.apellido}"></label><br></h1>
+                        <label style="font-size: 1.8rem; padding-top: 20%;" th:text="'Especialización: '"></label><br>
+                        <label style="font-size: 1.5rem;" th:text="${prestador.rubro}"></label><br>
+                    </div>
                 </div>
 
-
-                <h3 style="text-align: center;"><label class="zona" th:text="'Zona: ' + ${zona.nombre}"></label></h3>
+                <h3 style="text-align: center;"><label class="zona" th:text="'Zona: ' + ${prestador.zona.nombre}"></label></h3>
                 <div class="jumbotron" style="padding-right: 25rem; padding-left: 25rem; text-align: center;">
                     <h3><label th:text="'Descripción: '"></label><br></h3>
-                    <h3><label th:text="${descripcion}"></label><br></h3>
+                    <h3><label th:text="${prestador.descripcion}"></label><br></h3>
                 </div>
+                
                 <div class="jumbotron" style="padding-right: 25rem; padding-left: 25rem; text-align: center;">
                     <h3><label th:text="'Contacto: '"></label><br></h3>
-                    <h3><label th:text="${mail}"></label><br></h3>
-                    <h3><label th:text="${telefono}"></label><br></h3>
+                    <h3><label th:text="${prestador.mail}"></label><br></h3>
+                    <h3><label th:text="${prestador.telefono}"></label><br></h3>
+                </div> 
+                
+                <div class="jumbotron" style="padding-right: 25rem; padding-left: 25rem; text-align: center; display: flex;">
+                    <h3><label th:text="'¡Votalo!'"></label><br></h3>
+                    <a th:href="@{/votar/} + ${prestador.cuit} + @{/MALA(dni=${__session.usuariosession.dni__})}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></a><br>
+                    <a th:href="@{/votar/} + ${prestador.cuit} + @{/REGULAR(dni=${__session.usuariosession.dni__})}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></a><br>
+                    <a th:href="@{/votar/} + ${prestador.cuit} + @{/BUENA(dni=${__session.usuariosession.dni__})}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></a><br>
+                    <a th:href="@{/votar/} + ${prestador.cuit} + @{/MUY_BUENA(dni=${__session.usuariosession.dni__})}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></a><br>
+                    <a th:href="@{/votar/} + ${prestador.cuit} + @{/EXCELENTE(dni=${__session.usuariosession.dni__})}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></a><br>
                 </div>
             </div>
         </div>
-
-        <!--        <div class="card mb-3" style="max-width: 1000px; padding-top: 150px; padding-bottom: 150px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img alt="" width="400" height="400" class="rounded mx-auto d-flex" th:src="@{/foto/load/} + ${foto.id}">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h1><label th:text="${nombre}"></label><br>
-                                    <label th:text="${apellido}"></label><br></h1>
-                                <h3><label th:text="'Zona: ' + ${idZona}"></label></h3>
-                                <h3><label th:text="'Descripción: '"></label><br></h3>
-                                <h3><label th:text="${descripcion}"></label><br></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
 
         <!-- Footer-->
         <footer class="footer text-center">

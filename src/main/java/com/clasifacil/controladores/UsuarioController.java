@@ -151,14 +151,7 @@ public class UsuarioController {
     public String leerMas(ModelMap modelo, @PathVariable("cuit") String cuit) {
 
         Prestador prestador = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
-        modelo.put("cuit", cuit);
-        modelo.put("nombre", prestador.getNombre());
-        modelo.put("apellido", prestador.getApellido());
-        modelo.put("telefono", prestador.getTelefono());
-        modelo.put("serviciosPrestados", prestador.getServiciosprestados());
-        modelo.put("descripcion", prestador.getDescripcion());
-        modelo.put("foto", prestador.getFoto().getId());
-        modelo.put("zona", prestador.getZona());
+        modelo.put("prestador", prestador);
 
         return "leer-mas.html";
     }
