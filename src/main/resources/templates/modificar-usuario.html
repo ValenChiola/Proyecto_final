@@ -50,47 +50,46 @@
                 <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
 
                 <input type="hidden" name="dni"  th:value="${perfil.dni}"/>
-                
+
                 <div class="form-group">
                     <label for="Nombre" >Nombre*</label>
                     <input type="text" class="form-control" name="nombre" required placeholder="Nombre" th:value="${perfil.nombre}">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Apellido">Apellido*</label>
                     <input type="text" class="form-control" name="apellido" required placeholder="Apellido" th:value="${perfil.apellido}">  
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Telefono">Telefono*</label>
                     <input type="number" class="form-control" name="telefono" placeholder="Telefono" th:value="${perfil.telefono}"> 
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Mail">Mail*</label>
                     <input type="text" class="form-control" name="mail" placeholder="Mail" th:value="${perfil.mail}" >
                 </div>
-                
-              
+
+
                 <div class="form-group">
                     <label>Zona</label>
                     <select class="form-control" name="idZona">
                         <option th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}"></option> </select>
                 </div>
-                
-                
+
+
                 <div class="form-group">
                     <label for="clave" class="clave">Clave*</label>
                     <input type="password" class="form-control" name="clave1" pattern=".{6,}" placeholder="Al menos 6 dígitos">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="clave" class="clave">Repetir Clave*</label>
                     <input type="password" class="form-control" name="clave2" pattern=".{6,}" placeholder="Al menos 6 dígitos">
                 </div>
-                
-                <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Modificar </button></div> -->
-            </form>
+
+                <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Modificar </button></div>
 
         </header>
 
