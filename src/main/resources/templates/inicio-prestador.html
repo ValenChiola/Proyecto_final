@@ -52,11 +52,10 @@
             </div>
         </nav>
         <div class="container2">
-            <div class="col-lg-4 mr-auto">
+            <div class="col-lg-4 d-flex mr-auto">
                 <img alt="" class="rounded mx-auto d-flex" width="350" height="auto" th:src="@{/foto/load/} + ${session.prestadorsession.foto.id}"/>
-            </div>
-            <div class="masthead-heading text-uppercase mb-0">
-                <h1 style="text-align: center; padding-top: 50%; padding-left: 20%;" th:text="${session.prestadorsession.nombre + ' ' + session.prestadorsession.apellido}"></h1>
+                <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 20%;" th:text="${session.prestadorsession.nombre}"></h1>
+                <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 5%;" th:text="${session.prestadorsession.apellido}"></h1>
             </div>
         </div>
             <!--            <h1 style="padding-top: 5%;" th:text="${session.prestadorsession.nombre + ' ' + session.prestadorsession.apellido}"></h1>
@@ -67,14 +66,6 @@
                     </div>-->
 
             <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <th scope="row" style="padding-left: 5%;"><h4>Zona</h4></th>
@@ -89,9 +80,21 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <th scope="row" style="padding-left: 5%;"><h4>Teléfono</h4></th>
+                        <td></td>
+                        <td style="padding-left: 5%;"> <h6><label th:text="${session.prestadorsession.telefono}"></label></h6> </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="padding-left: 5%;"><h4>Descripción</h4></th>
+                        <td></td>
+                        <td style="padding-left: 5%;"> <h6><label th:text="${session.prestadorsession.descripcion}"></label></h6> </td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <th scope="row" style="padding-left: 5%;"><h4>Valoracion</h4></th>
                         <td></td>
-                        <td><div style="display: flex; color: #e0a800; padding-left: 3%;" >
+                        <td><div style="display: flex; color: #e0a800; padding-left: 6%;" >
                                 <span th:if="${session.prestadorsession.valoracion == null}"style="padding-left:1rem;color:black; align-content: center;" >No te han votado aún</span><br>
                                 <span th:if="${session.prestadorsession.valoracion != null}"style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
                                 <span th:if="${session.prestadorsession.valoracion > 1}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
