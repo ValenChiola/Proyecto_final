@@ -4,6 +4,7 @@ import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.repositorios.PrestadorRepositorio;
+import com.clasifacil.repositorios.VotoRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.UsuarioService;
 import java.util.List;
@@ -30,6 +31,9 @@ public class UsuarioController {
 
     @Autowired
     private PrestadorRepositorio prestadorRepositorio;
+
+    @Autowired
+    private VotoRepositorio votoRepositorio;
 
     @GetMapping("/registro")
     public String registro(ModelMap modelo) {
@@ -133,16 +137,21 @@ public class UsuarioController {
             List<Prestador> prestadores = prestadorRepositorio.listarTodosPorValoracion();
             modelo.put("prestadores", prestadores);
             return "inicio-usuario.html";
-        }else{
+        } else {
             modelo.put("error", "Has sido deshabilitado.");
             return "login.html";
         }
     }
 
-    @GetMapping("/buscar/{rubro}")
-    public String buscarPorRubro(ModelMap modelo, @PathVariable("rubro") String rubro) {
-        List<Prestador> prestadores = prestadorRepositorio.listarPorRubro(rubro);
-        modelo.put("prestadoresBuscados", prestadores);
+    @PostMapping("/buscar")
+    public String buscarPorRubro(ModelMap modelo, @RequestParam String q) {
+
+        try {
+            List<Prestador> prestadores = prestadorRepositorio.listarPorRubro("%" + q.substring(0, 3).toUpperCase() + "%");
+            modelo.put("prestadores", prestadores);
+
+        } catch (Exception e) {
+        }
 
         return "inicio-usuario.html";
     }
@@ -157,10 +166,15 @@ public class UsuarioController {
     }
 
     @GetMapping("{cuit}")
-    public String eliminar(HttpSession session,ModelMap modelo, @PathVariable("cuit") String cuit) {
-        prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
+    public String eliminar(HttpSession session, ModelMap modelo, @PathVariable("cuit") String cuit) {
 
-        return inicio(modelo,session);
+        try {
+            votoRepositorio.eliminarVotoPorPrestador(cuit);
+            prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
+        } catch (Exception e) {
+            modelo.put("error", e.getMessage());
+        }
+        return inicio(modelo, session);
     }
 
     @GetMapping("/listar-usuarios")
