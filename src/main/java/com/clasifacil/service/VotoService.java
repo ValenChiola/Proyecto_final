@@ -7,7 +7,9 @@ import com.clasifacil.enums.Valoraciones;
 import com.clasifacil.repositorios.PrestadorRepositorio;
 import com.clasifacil.repositorios.UsuarioRepositorio;
 import com.clasifacil.repositorios.VotoRepositorio;
+import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +91,16 @@ public class VotoService {
         
         votoRepositorio.save(voto);
         
+    }
+    
+    @Transactional
+    public void eliminarVotoPorPrestador(String cuit){
+        
+        List<Voto> votos = votoRepositorio.listarVotosPorPrestador(cuit);
+        
+        if(!votos.isEmpty()){
+            votoRepositorio.eliminarVotoPorPrestador(cuit);
+        }
     }
     
     

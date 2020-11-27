@@ -3,9 +3,8 @@ package com.clasifacil.controladores;
 import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Rubros;
-import com.clasifacil.repositorios.PrestadorRepositorio;
-import com.clasifacil.repositorios.ZonaRepositorio;
 import com.clasifacil.service.PrestadorService;
+import com.clasifacil.service.ZonaService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +25,11 @@ public class PrestadorController {
     private PrestadorService prestadorService;
 
     @Autowired
-    private PrestadorRepositorio prestadorRepositorio;
-
-    @Autowired
-    private ZonaRepositorio zonaRepositorio;
+    private ZonaService zonaService;
 
     @GetMapping("/registro")
     public String registrar(ModelMap modelo) {
-        List<Zona> zonas = zonaRepositorio.findAll();
+        List<Zona> zonas = zonaService.listarTodas();
         modelo.put("zonas", zonas);
         return "registro-prestador.html";
     }
@@ -77,16 +73,18 @@ public class PrestadorController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_PRESTADOR')")
     @GetMapping("/modificar")
     public String modificar(ModelMap modelo,HttpSession session,@RequestParam String cuit) {
-        List<Zona> zonas = zonaRepositorio.findAll();
+        List<Zona> zonas = zonaService.listarTodas();
         modelo.put("zonas", zonas);
         
-        Prestador p = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
+        Prestador p = prestadorService.buscarPrestadorPorCuit(cuit);
         modelo.addAttribute("perfil", p);
         return "modificar-prestador.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_PRESTADOR')")
     @PostMapping("/actualizar")
     public String modificarPrestador(ModelMap modelo,
             @RequestParam String cuit,
@@ -107,7 +105,7 @@ public class PrestadorController {
                     apellido, mail, clave, clave2, telefono,
                     idZona, foto, descripcion, rubro);
             
-            Prestador p = prestadorRepositorio.buscarPrestadorPorCuit(cuit);
+            Prestador p = prestadorService.buscarPrestadorPorCuit(cuit);
             session.setAttribute("prestadorsession", p);
 
         } catch (Error ex) {

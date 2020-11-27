@@ -112,7 +112,8 @@ public class UsuarioService implements UserDetailsService {
         usuario.setApellido(apellido);
         usuario.setMail(mail);
         usuario.setTelefono(telefono);
-        usuario.setClave(clave1);
+        String encriptada = new BCryptPasswordEncoder().encode(clave1);
+        usuario.setClave(encriptada);
 
         Optional<Zona> zona = zr.findById(idZona);
         if (zona.isPresent()) {
