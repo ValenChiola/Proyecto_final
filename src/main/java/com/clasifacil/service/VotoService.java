@@ -23,7 +23,7 @@ public class VotoService {
     private PrestadorRepositorio prestadorRepositorio;
     
     @Autowired
-    private PrestadorService prestadorService;
+    private NotificacionService notificacionService;
     
     @Autowired
     private VotoRepositorio votoRepositorio;
@@ -62,9 +62,6 @@ public class VotoService {
             }else {
                 throw new Error("No tiene permisos para realizar la operación solicitada");
             }
-//            prestador1.getValoraciones().add(puntaje);
-//            int promedio = prestadorService.promediar(prestador1.getValoraciones());
-//            prestador1.setValoracion(promedio);
 
             if(prestador1.getValoracion() == null){
                 prestador1.setValoracion(puntaje);
@@ -90,7 +87,7 @@ public class VotoService {
         }
         
         votoRepositorio.save(voto);
-        
+        notificacionService.enviarPorVoto(id, CUIT);
     }
     
     @Transactional
