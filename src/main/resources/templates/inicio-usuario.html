@@ -40,16 +40,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                                             th:href="@{/usuario/modificar(dni=${__session.usuariosession.dni__})}" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                                             href="/logout">Salir</a></li>
-                        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                                                                                      href="/usuario/listar-usuarios">Listar Usuarios</a></li>
                         <form action="/usuario/buscar" class="form-inline my-2 my-lg-0" method="POST">
                             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Buscar Rubros" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                         </form>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                             th:href="@{/usuario/modificar(dni=${__session.usuariosession.dni__})}" th:text="${session.usuariosession.nombre + ' ' + session.usuariosession.apellido}"></a></li>
+                        <li sec:authorize="hasAnyRole('ROLE_ADMIN')" class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                                                                      href="/usuario/listar-usuarios">Listar Usuarios</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                             href="/logout">Salir</a></li>
                     </ul>
                 </div>
             </div>
