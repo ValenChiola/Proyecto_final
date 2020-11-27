@@ -134,6 +134,7 @@ public class UsuarioController {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("usuariosession");
+        
         if (u.getHabilitado()) {
             List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
             modelo.put("prestadores", prestadores);
