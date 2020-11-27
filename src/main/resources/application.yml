@@ -9,8 +9,8 @@ spring:
                 starttls:
                     required: true
                     enable: true
-    username: 
-    password: 
+    username: clasifacilarg@gmail.com
+    password: clasifacil2020
     
   datasource: 
     url: jdbc:mysql://localhost:3306/clasifacil?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8

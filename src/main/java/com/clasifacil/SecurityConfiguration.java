@@ -1,7 +1,7 @@
 package com.clasifacil;
 
+import com.clasifacil.service.PrestadorService;
 import com.clasifacil.service.UsuarioService;
-import static javafx.scene.input.KeyCode.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -37,14 +37,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.and().formLogin()
 					.loginPage("/login")
 						.loginProcessingUrl("/logincheck")
-						.usernameParameter("email")
+						.usernameParameter("mail")
 						.passwordParameter("clave")
-						.defaultSuccessUrl("/loginsuccess")
+						.defaultSuccessUrl("/resolver")
 						.failureUrl("/login?error=error")
 						.permitAll()
 				.and().logout()
 					.logoutUrl("/logout")
-					.logoutSuccessUrl("/buscador")
+					.logoutSuccessUrl("/")
 					.permitAll()
 				.and().csrf()
 					.disable();
