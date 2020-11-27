@@ -40,6 +40,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <form action="/usuario/buscar-usuarios" class="form-inline my-2 my-lg-0" method="POST">
+                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Buscar usuarios" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                                              th:href="@{/usuario/inicio}">Volver</a></li>
                     </ul>
