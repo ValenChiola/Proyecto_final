@@ -50,61 +50,62 @@
                 <p th:if="${error != null}" th:text="${error}" style=color:red;></p>
 
                 <input type="hidden" name="cuit"  th:value="${perfil.cuit}"/>
-                
+
                 <div class="form-group">
                     <label for="Nombre" >Nombre*</label>
                     <input type="text" class="form-control" name="nombre"  placeholder="Nombre" th:value="${perfil.nombre}">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Apellido">Apellido*</label>
                     <input type="text" class="form-control" name="apellido"  placeholder="Apellido" th:value="${perfil.apellido}">  
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Telefono">Telefono*</label>
                     <input type="number" class="form-control" name="telefono" placeholder="Telefono" th:value="${perfil.telefono}"> 
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Mail">Mail*</label>
                     <input type="text" class="form-control" name="mail" placeholder="Mail" th:value="${perfil.mail}" >
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Foto">Foto*</label>
                     <input type="file" class="form-control" name="foto" th:value="${perfil.foto}" >
                 </div>
-                
+
                 <div class="form-group">
                     <label>Zona</label>
                     <select class="form-control" name="idZona">
-                        <option th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}"></option> </select>
+                        <option th:selected="${zona} == ${perfil.zona}" th:each="zona : ${zonas}" th:value="${zona.id}" th:text="${zona.nombre}"></option> 
+                    </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Rubro">Especialización*</label>
                     <select class="custom-select" name="rubro">
-                        <option th:each="rubro : ${T(com.clasifacil.enums.Rubros).values()}" 
+                        <option th:selected="${rubro} == ${perfil.rubro}" th:each="rubro : ${T(com.clasifacil.enums.Rubros).values()}" 
                                 th:value="${rubro}" th:text="${rubro}" class="form-control"></option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="Servicios">Descripción Laboral*</label>
-                    <textarea type="text" class="form-control" name="descripcion" th:value="${perfil.descripcion}" ></textarea>
+                    <textarea type="text" class="form-control" name="descripcion" th:text="${perfil.descripcion}" ></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="clave" class="clave">Clave*</label>
                     <input type="password" class="form-control" name="clave" pattern=".{6,}" placeholder="Al menos 6 dígitos">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="clave" class="clave">Repetir Clave*</label>
                     <input type="password" class="form-control" name="clave2" pattern=".{6,}" placeholder="Al menos 6 dígitos">
                 </div>
-                
+
                 <div><br/><button type="submit" class="btn btn-xl btn-outline-light">Modificar </button></div>
             </form>
 
