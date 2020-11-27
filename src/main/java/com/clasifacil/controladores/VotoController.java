@@ -16,10 +16,7 @@ public class VotoController {
 
     @Autowired
     private VotoService votoService;
-    
-    @Autowired
-    private PrestadorService prestadorService;
-    
+
     @GetMapping("/{cuit}/{valoracion}")
     public String votar(@RequestParam String dni,@PathVariable("cuit") String cuit,
             @PathVariable("valoracion") Valoraciones valoracion){
