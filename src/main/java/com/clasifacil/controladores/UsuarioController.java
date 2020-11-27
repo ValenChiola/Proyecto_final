@@ -7,6 +7,7 @@ import com.clasifacil.service.PrestadorService;
 import com.clasifacil.service.UsuarioService;
 import com.clasifacil.service.VotoService;
 import com.clasifacil.service.ZonaService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,32 +23,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioService usuarioService;
-    
+
     @Autowired
     private ZonaService zonaService;
-    
+
     @Autowired
     private PrestadorService prestadorService;
-    
+
     @Autowired
     private VotoService votoService;
-    
+
     @GetMapping("/registro")
     public String registro(ModelMap modelo) {
         List<Zona> zonas = zonaService.listarTodas();
         modelo.put("zonas", zonas);
         return "registro-usuario.html";
     }
-    
+
     @PostMapping("/registrar")
     public String registrar(ModelMap modelo, @RequestParam String dni,
             @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
             @RequestParam String telefono, @RequestParam String clave1, @RequestParam String clave2,
             @RequestParam String idZona) throws Error {
-        
+
         try {
             usuarioService.registrar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
         } catch (Error e) {
@@ -60,54 +61,54 @@ public class UsuarioController {
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
             modelo.put("idZona", idZona);
-            
+
             return registro(modelo);
-            
+
         }
-        
+
         modelo.put("exito", "Te has registrado existosamente");
         return "index.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/deshabilitar/{dni}")
     public String deshabiltar(ModelMap modelo, @PathVariable("dni") String dni) {
-        
+
         usuarioService.deshabiltar(dni);
-        
+
         return listar(modelo);
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/habilitar/{dni}")
     public String habiltar(ModelMap modelo, @PathVariable("dni") String dni) {
-        
+
         usuarioService.habiltar(dni);
-        
+
         return listar(modelo);
     }
-    
+
     @GetMapping("/modificar")
     public String modificar(ModelMap modelo, HttpSession session, @RequestParam String dni) {
         List<Zona> zonas = zonaService.listarTodas();
         modelo.put("zonas", zonas);
-        
+
         Usuario u = usuarioService.buscarPorDNI(dni);
         modelo.addAttribute("perfil", u);
-        
+
         return "modificar-usuario.html";
     }
-    
+
     @PostMapping("/actualizar")
     public String modificarUsuario(ModelMap modelo, @RequestParam String dni,
             @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
             @RequestParam String telefono, @RequestParam String clave1, @RequestParam String clave2,
             @RequestParam String idZona, HttpSession session) throws Error {
-        
+
         try {
-            
+
             usuarioService.modificarUsuario(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
-            
+
             Usuario u = usuarioService.buscarPorDNI(dni);
             session.setAttribute("usuariosession", u);
         } catch (Error e) {
@@ -120,15 +121,15 @@ public class UsuarioController {
             modelo.put("clave1", clave1);
             modelo.put("clave2", clave2);
             modelo.put("idZona", idZona);
-            
+
             return modificar(modelo, session, dni);
-            
+
         }
-        
+
         modelo.put("exito", "Te has registrado existosamente");
         return "redirect:/usuario/inicio";
     }
-    
+
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
@@ -142,33 +143,50 @@ public class UsuarioController {
             return "login.html";
         }
     }
-    
+
     @PostMapping("/buscar")
     public String buscarPorRubro(ModelMap modelo, @RequestParam String q) {
-        
+
         try {
             List<Prestador> prestadores = prestadorService.listarPorRubro("%" + q.substring(0, 3).toUpperCase() + "%");
             modelo.put("prestadores", prestadores);
-            
+
         } catch (Exception e) {
         }
-        
+
         return "inicio-usuario.html";
     }
-    
+
+    @PostMapping("/buscar-usuarios")
+    public String buscarUsuario(ModelMap modelo, @RequestParam String q) {
+
+        List<Usuario> usuarios = new ArrayList<>();;
+        try {
+
+            Usuario u = usuarioService.buscarPorMail(q);
+            usuarios.add(u);
+
+        } catch (Error e) {
+            modelo.put("error", e.getMessage());
+        }
+        
+        modelo.put("usuarios", usuarios);
+        return "listar-usuarios.html";
+    }
+
     @GetMapping("/{cuit}/details")
     public String leerMas(ModelMap modelo, @PathVariable("cuit") String cuit) {
-        
+
         Prestador prestador = prestadorService.buscarPrestadorPorCuit(cuit);
         modelo.put("prestador", prestador);
-        
+
         return "leer-mas.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("{cuit}")
     public String eliminar(HttpSession session, ModelMap modelo, @PathVariable("cuit") String cuit) {
-        
+
         try {
             votoService.eliminarVotoPorPrestador(cuit);
             prestadorService.eliminar(cuit);
@@ -177,16 +195,16 @@ public class UsuarioController {
         }
         return inicio(modelo, session);
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listar-usuarios")
     public String listar(ModelMap modelo) {
         List<Usuario> usuarios = usuarioService.listarTodos();
         modelo.put("usuarios", usuarios);
-        
+
         return "listar-usuarios.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/upgrade")
     public String upragade(ModelMap modelo, @RequestParam String dni) {

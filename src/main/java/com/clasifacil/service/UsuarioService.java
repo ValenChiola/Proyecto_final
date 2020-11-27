@@ -221,7 +221,19 @@ public class UsuarioService implements UserDetailsService {
         if (respuesta.isPresent()) {
             return respuesta.get();
         } else {
-            throw new Error("No se ha encontrado el usuairo solicitado.");
+            throw new Error("No se ha encontrado el usuario solicitado.");
+        }
+    }
+    
+    @Transactional
+    public Usuario buscarPorMail(String mail) throws Error {
+
+        Usuario respuesta = ur.buscarPorMail(mail);
+
+        if (respuesta != null) {
+            return respuesta;
+        } else {
+            throw new Error("No se ha encontrado el usuario solicitado.");
         }
     }
 
