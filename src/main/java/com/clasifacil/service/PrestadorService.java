@@ -28,16 +28,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class PrestadorService implements UserDetailsService{
+public class PrestadorService{
 
     @Autowired
-    private ZonaRepositorio zr;
+    private ZonaRepositorio zonaRepositorio;
     
     @Autowired
-    private FotoRepositorio fr;
-    
-    @Autowired
-    private PrestadorRepositorio pr;
+    private PrestadorRepositorio prestadorRepositorio;
     
     @Autowired
     private FotoService fotoService;
@@ -64,7 +61,7 @@ public class PrestadorService implements UserDetailsService{
         Foto foto = fotoService.guardar(archivo);
         prestador.setFoto(foto);
 
-        Optional<Zona> zona = zr.findById(idZona);
+        Optional<Zona> zona = zonaRepositorio.findById(idZona);
         if (zona.isPresent()) {
             Zona z = zona.get();
             prestador.setZona(z);
@@ -72,7 +69,7 @@ public class PrestadorService implements UserDetailsService{
             throw new Error("No se encontro la zona");
         }
 
-        pr.save(prestador);
+        prestadorRepositorio.save(prestador);
     }
 
     @Transactional
@@ -81,7 +78,7 @@ public class PrestadorService implements UserDetailsService{
 
         validar(cuit, nombre, apellido, mail, clave, clave2, telefono, descripcion, rubro);
 
-        Optional<Prestador> pres = pr.findById(cuit);
+        Optional<Prestador> pres = prestadorRepositorio.findById(cuit);
         Prestador prestador = pres.get();
 
         prestador.setCuit(cuit);
@@ -89,31 +86,32 @@ public class PrestadorService implements UserDetailsService{
         prestador.setNombre(nombre); 
         prestador.setApellido(apellido);
         prestador.setMail(mail);
-        prestador.setClave(clave);
+         String encriptada = new BCryptPasswordEncoder().encode(clave);
+        prestador.setClave(encriptada);
         prestador.setTelefono(telefono);
         prestador.setDescripcion(descripcion);
 
         Foto foto = fotoService.guardar(archivo);
         prestador.setFoto(foto);
 
-        Optional<Zona> zona = zr.findById(idZona);
+        Optional<Zona> zona = zonaRepositorio.findById(idZona);
         if (zona.isPresent()) {
             Zona z = zona.get();
             prestador.setZona(z);
         } else {
             throw new Error("No se encontro la zona");
         }
-        pr.save(prestador);
+        prestadorRepositorio.save(prestador);
 
     }
 
     @Transactional
     public void borrarPrestador(String cuit) throws Error {
 
-        Optional<Prestador> pres = pr.findById(cuit);
+        Optional<Prestador> pres = prestadorRepositorio.findById(cuit);
         if (pres.isPresent()) {
             Prestador prestador = pres.get();
-            pr.delete(prestador);
+            prestadorRepositorio.delete(prestador);
         } else {
             throw new Error("No se encontro el Prestador.");
         }
@@ -171,44 +169,21 @@ public class PrestadorService implements UserDetailsService{
 
     @Transactional
     public List<Prestador> listarPorRubro(String rubro){
-        return pr.listarPorRubro(rubro);
+        return prestadorRepositorio.listarPorRubro(rubro);
     }
     
-    @Override
-    public UserDetails loadUserByUsername(String cuit) throws UsernameNotFoundException {
-
-        Prestador prestador = pr.buscarPrestadorPorCuit(cuit);
-        if (prestador != null) {
-            List<GrantedAuthority> permisos = new ArrayList<>();
-            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_PRESTADOR");
-            permisos.add(p1);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attr.getRequest().getSession(true);
-            session.setAttribute("prestadorsession", prestador);
-
-//            GrantedAuthority p2 = new SimpleGrantedAuthority("MODULO_MATERIA");
-//            permisos.add(p2);
-//            GrantedAuthority p3 = new SimpleGrantedAuthority("MODULO_PAGO");
-//            permisos.add(p3);
-            User user = new User(prestador.getCuit(), prestador.getClave(), permisos);
-
-            return user;
-
-        } else {
-            return null;
-        }
-
+    @Transactional
+    public Prestador buscarPrestadorPorCuit(String cuit){
+        return prestadorRepositorio.buscarPrestadorPorCuit(cuit);
     }
     
-//    public int promediar(List<Integer> lista){
-//        int promedio = 0;
-//        int acumulador = 0;
-//        for (Integer i : lista) {
-//            acumulador += i;
-//        }
-//        promedio = acumulador/lista.size();
-//        
-//        return promedio;
-//    }
+    @Transactional
+    public List<Prestador> listarTodosPorValoracion(){
+        return prestadorRepositorio.listarTodosPorValoracion();
+    }
+    
+    @Transactional
+    public void eliminar(String cuit){
+        prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
+    }
 }
