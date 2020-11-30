@@ -186,4 +186,9 @@ public class PrestadorService{
     public void eliminar(String cuit){
         prestadorRepositorio.delete(prestadorRepositorio.buscarPrestadorPorCuit(cuit));
     }
+    
+    @Transactional
+    public Prestador buscarPorMail(String mail){
+        return prestadorRepositorio.buscarPrestadorPorMail(mail);
+    }
 }

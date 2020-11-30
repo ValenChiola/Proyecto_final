@@ -2,6 +2,7 @@ package com.clasifacil.controladores;
 
 import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Zona;
+import com.clasifacil.service.NotificacionService;
 import com.clasifacil.service.PrestadorService;
 import com.clasifacil.service.ZonaService;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +24,7 @@ public class PortalController {
     private PrestadorService prestadorService;
 
     @Autowired
-    private UsuarioController usuarioController;
+    private NotificacionService notificacionService;
 
     @GetMapping("/")
     public String index() {
@@ -32,7 +34,7 @@ public class PortalController {
     @GetMapping("/login")
     public String login(HttpSession session, ModelMap modelo, @RequestParam(required = false) String logout, @RequestParam(required = false) String error) {
 
-        checkLogueado(modelo,session);
+        checkLogueado(modelo, session);
 
         if (error != null && !error.isEmpty()) {
             modelo.addAttribute("error", "Mail o Clave incorrectos.");
@@ -60,9 +62,25 @@ public class PortalController {
                 return "inicio-prestador.html";
             }
 
-            return usuarioController.inicio(modelo, session);
+            return "redirect:/usuario/inicio";
         }
-        
+
         return null;
     }
+
+    @GetMapping("/contacto")
+    public String contacto() {
+
+        return "contacto.html";
+    }
+
+    @PostMapping("/contactar")
+    public String contactar(@RequestParam String mail, @RequestParam String mensaje) {
+
+        notificacionService.enviarContacto(mensaje, "Consulta", mail);
+
+        return "index.html";
+
+    }
+
 }
