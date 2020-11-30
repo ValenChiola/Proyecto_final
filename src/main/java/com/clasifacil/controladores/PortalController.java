@@ -1,11 +1,15 @@
 package com.clasifacil.controladores;
 
 import com.clasifacil.entidades.Prestador;
+import com.clasifacil.entidades.Usuario;
 import com.clasifacil.service.NotificacionService;
 import com.clasifacil.service.PrestadorService;
+import com.clasifacil.service.UsuarioService;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +24,9 @@ public class PortalController {
 
     @Autowired
     private PrestadorService prestadorService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private NotificacionService notificacionService;
@@ -73,15 +80,15 @@ public class PortalController {
     }
 
     @PostMapping("/contactar")
-    public String contactar(ModelMap modelo,@RequestParam String mail, @RequestParam String mensaje) {
+    public String contactar(ModelMap modelo, @RequestParam String mail, @RequestParam String mensaje) {
 
         try {
             checkMensajeYMail(mensaje, mail);
-            
+
             notificacionService.enviarContacto(mensaje, "Consulta", mail);
         } catch (Error e) {
             modelo.put("error", e.getMessage());
-            
+
             return "contacto.html";
         }
 
@@ -100,4 +107,40 @@ public class PortalController {
         }
     }
 
+    @GetMapping("/recuperacion")
+    public String recuperaracion() {
+        return "recuperar.html";
+    }
+
+    @PostMapping("/recuperar")
+    public String recuperar(ModelMap modelo,@RequestParam String mail) {
+
+        checkMensajeYMail(mail, mail);
+        
+        String retorno = checkIfSomebodyIsInTheDataBasePorMail(mail);
+        
+        if(retorno.equals("usuario")){
+            usuarioService.recuperarContrasenia(mail);
+        }else{
+            prestadorService.recuperarContrasenia(mail);
+        }
+        
+        modelo.put("exito", "Se ha enviado tu nueva contraseña a tu mail. Luego podrás cambiarla en tu perfil.");
+        return "login.html";
+    }
+
+    private String checkIfSomebodyIsInTheDataBasePorMail(String mail) throws Error {
+        Usuario u = usuarioService.buscarPorMail(mail);
+        if (u == null) {
+            Prestador p = prestadorService.buscarPorMail(mail);
+
+            if (p == null) {
+                throw new Error("No hay nadie con ese mail. No seas chanta");
+            }
+            
+            return "prestador";
+        }
+        
+        return "usuario";
+    }
 }
