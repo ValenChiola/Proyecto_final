@@ -1,10 +1,8 @@
 package com.clasifacil.controladores;
 
 import com.clasifacil.entidades.Prestador;
-import com.clasifacil.entidades.Zona;
 import com.clasifacil.service.NotificacionService;
 import com.clasifacil.service.PrestadorService;
-import com.clasifacil.service.ZonaService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,12 +73,31 @@ public class PortalController {
     }
 
     @PostMapping("/contactar")
-    public String contactar(@RequestParam String mail, @RequestParam String mensaje) {
+    public String contactar(ModelMap modelo,@RequestParam String mail, @RequestParam String mensaje) {
 
-        notificacionService.enviarContacto(mensaje, "Consulta", mail);
+        try {
+            checkMensajeYMail(mensaje, mail);
+            
+            notificacionService.enviarContacto(mensaje, "Consulta", mail);
+        } catch (Error e) {
+            modelo.put("error", e.getMessage());
+            
+            return "contacto.html";
+        }
 
-        return "index.html";
+        return "redirect:/";
 
+    }
+
+    private void checkMensajeYMail(String mensaje, String mail) throws Error {
+
+        if (mensaje.trim().isEmpty() || mensaje == null) {
+            throw new Error("El mensaje no puede estar vacío.");
+        }
+
+        if (!mail.contains("@")) {
+            throw new Error("Ingrese un mail válido.");
+        }
     }
 
 }
