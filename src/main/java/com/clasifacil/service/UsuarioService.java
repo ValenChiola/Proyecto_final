@@ -230,11 +230,8 @@ public class UsuarioService implements UserDetailsService {
 
         Usuario respuesta = ur.buscarPorMail(mail);
 
-        if (respuesta != null) {
+        
             return respuesta;
-        } else {
-            throw new Error("No se ha encontrado el usuario solicitado.");
-        }
     }
 
     @Transactional
