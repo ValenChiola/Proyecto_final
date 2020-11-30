@@ -2,6 +2,7 @@ package com.clasifacil.service;
 
 import com.clasifacil.entidades.Foto;
 import com.clasifacil.entidades.Prestador;
+import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Rubros;
 import com.clasifacil.repositorios.FotoRepositorio;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,5 +192,16 @@ public class PrestadorService{
     @Transactional
     public Prestador buscarPorMail(String mail){
         return prestadorRepositorio.buscarPrestadorPorMail(mail);
+    }
+    
+    @Transactional
+    public void recuperarContrasenia(String mail) {
+
+        String claveNueva = UUID.randomUUID().toString();
+        String claveNuevaEncriptada = new BCryptPasswordEncoder().encode(claveNueva);
+        
+        Prestador p = buscarPorMail(mail);
+        p.setClave(claveNuevaEncriptada);
+        prestadorRepositorio.save(p);
     }
 }
