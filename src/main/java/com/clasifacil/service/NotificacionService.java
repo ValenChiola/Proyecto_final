@@ -75,21 +75,13 @@ public class NotificacionService {
 
         sender.send(mensaje);
     }
-    
+
     @Async
     public void enviarModificarContraseña(String cuerpo, String titulo, String mail, String contraseña) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
         String mensajeAnterior = "";
 
-        Usuario u = usuarioService.buscarPorMail(mail);
-        if (u == null) {
-            Prestador p = prestadorService.buscarPorMail(mail);
-            if (p == null) {
-                mensajeAnterior = mail + " Su nueva Contraseña es: " + contraseña;
-            }
-        } else {
-            mensajeAnterior = " Su nueva Contraseña es: " + contraseña;
-        }
+        mensajeAnterior = " Su nueva Contraseña es: " + contraseña;
 
         mensaje.setFrom("clasifacilarg@gmail.com");
         mensaje.setTo(mail);

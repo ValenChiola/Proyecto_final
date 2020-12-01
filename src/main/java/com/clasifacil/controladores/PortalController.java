@@ -113,18 +113,25 @@ public class PortalController {
     }
 
     @PostMapping("/recuperar")
-    public String recuperar(ModelMap modelo,@RequestParam String mail) {
+    public String recuperar(ModelMap modelo, @RequestParam String mail) {
+        try {
+            checkMensajeYMail(mail, mail);
 
-        checkMensajeYMail(mail, mail);
-        
-        String retorno = checkIfSomebodyIsInTheDataBasePorMail(mail);
-        
-        if(retorno.equals("usuario")){
-            usuarioService.recuperarContrasenia(mail);
-        }else{
-            prestadorService.recuperarContrasenia(mail);
+            String retorno = checkIfSomebodyIsInTheDataBasePorMail(mail);
+
+            if (retorno.equals("usuario")) {
+                usuarioService.recuperarContrasenia(mail);
+            } else {
+                prestadorService.recuperarContrasenia(mail);
+            }
+
+        } catch (Error e) {
+            modelo.put("error", e.getMessage());
+            modelo.put("mail", mail);
+            
+            return "recuperar.html";
         }
-        
+
         modelo.put("exito", "Se ha enviado tu nueva contraseña a tu mail. Luego podrás cambiarla en tu perfil.");
         return "login.html";
     }
@@ -137,10 +144,10 @@ public class PortalController {
             if (p == null) {
                 throw new Error("No hay nadie con ese mail. No seas chanta");
             }
-            
+
             return "prestador";
         }
-        
+
         return "usuario";
     }
 }
