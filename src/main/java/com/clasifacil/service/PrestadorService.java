@@ -39,6 +39,9 @@ public class PrestadorService{
     private PrestadorRepositorio prestadorRepositorio;
     
     @Autowired
+    private NotificacionService notificacionService;
+    
+    @Autowired
     private FotoService fotoService;
 
     @Transactional
@@ -203,5 +206,7 @@ public class PrestadorService{
         Prestador p = buscarPorMail(mail);
         p.setClave(claveNuevaEncriptada);
         prestadorRepositorio.save(p);
+        notificacionService.enviarModificarContraseña("", "Recuperación de contraseña", mail, claveNueva);
+        
     }
 }

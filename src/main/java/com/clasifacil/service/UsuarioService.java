@@ -35,7 +35,7 @@ public class UsuarioService implements UserDetailsService {
     private ZonaRepositorio zr;
 
     @Autowired
-    private NotificacionService notificaionService;
+    private NotificacionService notificacionService;
 
     @Autowired
     private PrestadorRepositorio prestadorRepositorio;
@@ -251,5 +251,7 @@ public class UsuarioService implements UserDetailsService {
         Usuario u = buscarPorMail(mail);
         u.setClave(claveNuevaEncriptada);
         ur.save(u);
+        notificacionService.enviarModificarContraseña("", "Recuperación de contraseña", mail, claveNueva);
+        
     }
 }

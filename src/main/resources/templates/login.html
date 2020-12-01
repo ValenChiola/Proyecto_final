@@ -46,6 +46,7 @@
             <div class="container d-flex align-items-center flex-column">
                 <form action="/logincheck" method="POST">
                     <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
+                    <h5 th:if="${exito != null}" th:text="${exito}" style="color: white"></h5>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Dirección de Mail</label>
                         <input type="text" class="form-control" name="mail" th:value="${mail}" id="exampleInputEmail1" placeholder="Mail">
