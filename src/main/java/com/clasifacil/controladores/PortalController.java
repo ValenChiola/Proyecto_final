@@ -62,7 +62,7 @@ public class PortalController {
         return "login.html";
     }
     
-    @GetMapping("/{rubro}")
+    @GetMapping("/buscar/{rubro}")
     public String buscar(ModelMap modelo, @PathVariable("rubro") String rubro) {
         System.out.println(rubro);
         List<Prestador> prestadores = prestadorService.listarPorRubro(rubro);
