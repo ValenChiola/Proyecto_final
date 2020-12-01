@@ -137,7 +137,7 @@ public class UsuarioController {
 
         if (u.getHabilitado()) {
             List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
-            modelo.put("prestadores", prestadores);
+            modelo.addAttribute("prestadores", prestadores);
             return "inicio-usuario.html";
         } else {
             modelo.put("error", "Has sido deshabilitado.");
