@@ -10,6 +10,7 @@ import com.clasifacil.repositorios.ZonaRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UsuarioService implements UserDetailsService {
     private ZonaRepositorio zr;
 
     @Autowired
-    private NotificacionService notificaionService;
+    private NotificacionService notificacionService;
 
     @Autowired
     private PrestadorRepositorio prestadorRepositorio;
@@ -224,17 +225,13 @@ public class UsuarioService implements UserDetailsService {
             throw new Error("No se ha encontrado el usuario solicitado.");
         }
     }
-    
+
     @Transactional
     public Usuario buscarPorMail(String mail) throws Error {
 
         Usuario respuesta = ur.buscarPorMail(mail);
 
-        if (respuesta != null) {
-            return respuesta;
-        } else {
-            throw new Error("No se ha encontrado el usuario solicitado.");
-        }
+        return respuesta;
     }
 
     @Transactional
@@ -243,5 +240,18 @@ public class UsuarioService implements UserDetailsService {
 
         u.setRol(Roles.ADMIN);
         ur.save(u);
+    }
+
+    @Transactional
+    public void recuperarContrasenia(String mail) {
+
+        String claveNueva = UUID.randomUUID().toString();
+        String claveNuevaEncriptada = new BCryptPasswordEncoder().encode(claveNueva);
+        
+        Usuario u = buscarPorMail(mail);
+        u.setClave(claveNuevaEncriptada);
+        ur.save(u);
+        notificacionService.enviarModificarContraseña("", "Recuperación de contraseña", mail, claveNueva);
+        
     }
 }
