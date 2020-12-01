@@ -42,24 +42,39 @@
                 </div>
             </div>
         </nav>
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                <form action="/logincheck" method="POST">
-                    <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-                    <h5 th:if="${exito != null}" th:text="${exito}" style="color: white"></h5>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Dirección de Mail</label>
-                        <input type="text" class="form-control" name="mail" th:value="${mail}" id="exampleInputEmail1" placeholder="Mail">
-                        <small id="emailHelp1" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie más</small> </div>
-                    <div class="form-group">
-                        <label for="clave" class="clave">Contraseña</label>
-                        <input type="password" class="form-control" name="clave" th:value="${clave1}" placeholder="Contraseña">
+
+        <section  class="container2" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Recuperar Contraseña</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
+                        <form action="/recuperar" method="POST" id="contactForm" name="sentMessage" novalidate="novalidate">
+                            <div class="control-group">
+                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                    <label>Ingrese su Mail</label>
+                                    <input class="form-control" id="email" type="email" name="mail" placeholder="Mail" required="required" data-validation-required-message="Ingrese un mail valido." />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <br/>
+                            <div id="success"></div>
+                            <div class="form-group"><button class="btn btn-primary btn-xl" type="submit">Recuperar</button></div>
+                        </form>
                     </div>
-                    <a href="/recuperacion" style="color: white" >¿Olvidaste tu contraseña?</a><br>
-                    <button type="submit" class="btn btn-xl btn-outline-light">Ingresar&nbsp;</button>
-                </form>
+                </div>
             </div>
-        </header>
+        </section>
+
+
         <footer class="footer text-center">
             <div class="container">
                 <div class="row">
