@@ -76,7 +76,7 @@ public class UsuarioController {
 
         usuarioService.deshabiltar(dni);
 
-        return listar(modelo);
+        return "redirect:/usuario/listar-usuarios";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -85,7 +85,7 @@ public class UsuarioController {
 
         usuarioService.habiltar(dni);
 
-        return listar(modelo);
+        return "redirect:/usuario/listar-usuarios";
     }
 
     @GetMapping("/modificar")
@@ -134,7 +134,7 @@ public class UsuarioController {
     @GetMapping("/inicio")
     public String inicio(ModelMap modelo, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("usuariosession");
-        
+
         if (u.getHabilitado()) {
             List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
             modelo.put("prestadores", prestadores);
@@ -161,16 +161,15 @@ public class UsuarioController {
     @PostMapping("/buscar-usuarios")
     public String buscarUsuario(ModelMap modelo, @RequestParam String q) {
 
-        List<Usuario> usuarios = new ArrayList<>();;
+        List<Usuario> usuarios = new ArrayList<>();
         try {
 
-            Usuario u = usuarioService.buscarPorMail(q);
-            usuarios.add(u);
+            usuarios = usuarioService.buscarPorParteDeMail("%" + q + "%");
 
         } catch (Error e) {
             modelo.put("error", e.getMessage());
         }
-        
+        System.out.println(usuarios.size());
         modelo.put("usuarios", usuarios);
         return "listar-usuarios.html";
     }

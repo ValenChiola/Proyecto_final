@@ -254,4 +254,10 @@ public class UsuarioService implements UserDetailsService {
         notificacionService.enviarModificarContraseña("", "Recuperación de contraseña", mail, claveNueva);
         
     }
+    
+     @Transactional
+    public List<Usuario> buscarPorParteDeMail(String mail) throws Error {
+
+        return ur.buscarPorParteDeMail(mail);
+    }
 }
