@@ -39,8 +39,6 @@ public class PortalController {
     @GetMapping("/login")
     public String login(HttpSession session, ModelMap modelo, @RequestParam(required = false) String logout, @RequestParam(required = false) String error) {
 
-        checkLogueado(modelo, session);
-
         if (error != null && !error.isEmpty()) {
             modelo.addAttribute("error", "Mail o Clave incorrectos.");
         }
@@ -49,9 +47,21 @@ public class PortalController {
             modelo.addAttribute("logout", "Has salido de la plataforma exitosamente.");
         }
 
-        return "login.html";
+        
+        return checkLogueado(session);
     }
 
+    private String checkLogueado(HttpSession session) {
+        if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
+            if (session.getAttribute("role").equals("prestador")) {
+                return "redirect:/prestador/inicio";
+            }
+            return "redirect:/usuario/inicio";
+        }
+
+        return "login.html";
+    }
+    
     @GetMapping("/{rubro}")
     public String buscar(ModelMap modelo, @PathVariable("rubro") String rubro) {
         System.out.println(rubro);
@@ -59,18 +69,6 @@ public class PortalController {
         modelo.put("prestadores", prestadores);
 
         return "index.html";
-    }
-
-    private String checkLogueado(ModelMap modelo, HttpSession session) {
-        if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
-            if (session.getAttribute("role").equals("prestador")) {
-                return "inicio-prestador.html";
-            }
-
-            return "redirect:/usuario/inicio";
-        }
-
-        return null;
     }
 
     @GetMapping("/contacto")

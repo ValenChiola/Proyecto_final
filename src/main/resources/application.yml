@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1 
   mail: 
     host: smtp.gmail.com
     port: 587
@@ -11,7 +15,7 @@ spring:
                     enable: true
     username: clasifacilarg@gmail.com
     password: clasifacil2020
-    
+ 
   datasource: 
     url: jdbc:mysql://localhost:3306/clasifacil?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
     username: root

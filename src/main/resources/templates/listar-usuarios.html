@@ -50,7 +50,10 @@
                 </div>
             </div>
         </nav>
-        <div style="position: relative" class="table-responsive-md">
+        <div th:if="${#lists.isEmpty(usuarios)}" class="mb-5 mt-5 text-center">
+            <h3 > No encontramos ningún usuario con ese mail :(</h3>
+        </div>
+        <div th:if="${not #lists.isEmpty(usuarios)}" style="position: relative" class="table-responsive-md">
             <table class="table">
                 <thead>
                     <tr>
