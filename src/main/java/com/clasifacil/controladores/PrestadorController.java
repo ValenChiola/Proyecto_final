@@ -67,7 +67,7 @@ public class PrestadorController {
 
             return registrar(modelo);
         } catch (Exception ex) {
-            modelo.put("error", "Foto Muy pesada");
+            modelo.put("error", "Foto muy pesada - No debe superar 1MB");
             modelo.put("cuit", cuit);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -138,7 +138,7 @@ public class PrestadorController {
 
             return modificar(modelo, session, cuit);
         }catch (Exception ex) {
-            modelo.put("error", "Foto Muy pesada");
+            modelo.put("error", "Foto muy pesada - No debe superar 1MB");
             modelo.put("cuit", cuit);
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
