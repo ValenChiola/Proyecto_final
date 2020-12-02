@@ -55,6 +55,11 @@
             </div>
         </nav>
         <div class="container2">
+            <ul>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a href="/usuario/inicio/descargar" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Descargar Lista de Prestadores</a>
+                </li>
+            </ul>
             <h3 class="text-center" th:if="${#lists.isEmpty(prestadores)}" >Lo sentimos, no hay prestadores con esa especialización :(</h3>
             <div class="card" th:each="p : ${prestadores}">
                 <label th:text="${p.rubro}"></label>
