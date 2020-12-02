@@ -50,7 +50,7 @@ public class PrestadorController {
 
         try {
             prestadorService.registrar(cuit, nombre, apellido, mail, clave, clave2, telefono, idZona,
-                     foto, descripcion, rubro);
+                    foto, descripcion, rubro);
         } catch (Error ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("cuit", cuit);
@@ -66,6 +66,20 @@ public class PrestadorController {
             modelo.put("rubro", rubro);
 
             return registrar(modelo);
+        } catch (Exception ex) {
+            modelo.put("error", "Foto muy pesada - No debe superar 1MB");
+            modelo.put("cuit", cuit);
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("mail", mail);
+            modelo.put("clave", clave);
+            modelo.put("clave2", clave2);
+            modelo.put("telefono", telefono);
+            modelo.put("idZona", idZona);
+            modelo.put("descripcion", descripcion);
+            modelo.put("rubro", rubro);
+            
+            return registrar(modelo);
         }
         modelo.put("titulo", "Bievenido");
         modelo.put("descripcion", "El prestador del servicio se registro con exito");
@@ -75,10 +89,10 @@ public class PrestadorController {
 
     @PreAuthorize("hasAnyRole('ROLE_PRESTADOR')")
     @GetMapping("/modificar")
-    public String modificar(ModelMap modelo,HttpSession session,@RequestParam String cuit) {
+    public String modificar(ModelMap modelo, HttpSession session, @RequestParam String cuit) {
         List<Zona> zonas = zonaService.listarTodas();
         modelo.put("zonas", zonas);
-        
+
         Prestador p = prestadorService.buscarPrestadorPorCuit(cuit);
         modelo.addAttribute("perfil", p);
         return "modificar-prestador.html";
@@ -104,7 +118,7 @@ public class PrestadorController {
             prestadorService.ModificarPrestador(cuit, nombre,
                     apellido, mail, clave, clave2, telefono,
                     idZona, foto, descripcion, rubro);
-            
+
             Prestador p = prestadorService.buscarPrestadorPorCuit(cuit);
             session.setAttribute("prestadorsession", p);
 
@@ -122,7 +136,21 @@ public class PrestadorController {
             modelo.put("descripcion", descripcion);
             modelo.put("rubro", rubro);
 
-            return modificar(modelo,session,cuit);
+            return modificar(modelo, session, cuit);
+        }catch (Exception ex) {
+            modelo.put("error", "Foto muy pesada - No debe superar 1MB");
+            modelo.put("cuit", cuit);
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("mail", mail);
+            modelo.put("clave", clave);
+            modelo.put("clave2", clave2);
+            modelo.put("telefono", telefono);
+            modelo.put("idZona", idZona);
+            modelo.put("descripcion", descripcion);
+            modelo.put("rubro", rubro);
+            
+            return modificar(modelo, session, cuit);
         }
         modelo.put("Exito", "Se modifico");
         modelo.put("descripcion", "El prestador del servicio se modifico con exito");

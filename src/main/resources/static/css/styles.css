@@ -54,6 +54,11 @@ html {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#dropdown2{
+    top: 230px!important;
+    left:150px!important;
+}
+
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: block;
 }
@@ -10217,7 +10222,7 @@ a.text-dark:hover, a.text-dark:focus {
     font-size: 1.25rem;
 }
 .masthead .masthead-avatar {
-    width: 15rem;
+    width: 20rem;
 }
 
 @media (min-width: 992px) {

@@ -162,8 +162,8 @@ public class PrestadorService{
             throw new Error("Las claves deben ser iguales.");
         }
 
-        if (descripcion == null || descripcion.trim().isEmpty() || descripcion.length() > 57) {
-            throw new Error("La descripcion no puede estar vacia y no puede superar los 57 caracteres.");
+        if (descripcion == null || descripcion.trim().isEmpty() || descripcion.length() > 40) {
+            throw new Error("La descripcion no puede estar vacia y no puede superar los 40 caracteres.");
         }
 
         if (rubro == null) {

@@ -3,16 +3,21 @@ package com.clasifacil.controladores;
 import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
+import com.clasifacil.service.CsvService;
 import com.clasifacil.service.PrestadorService;
 import com.clasifacil.service.UsuarioService;
 import com.clasifacil.service.VotoService;
 import com.clasifacil.service.ZonaService;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +31,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private CsvService csvService;
 
     @Autowired
     private ZonaService zonaService;
@@ -76,7 +84,7 @@ public class UsuarioController {
 
         usuarioService.deshabiltar(dni);
 
-        return listar(modelo);
+        return "redirect:/usuario/listar-usuarios";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
@@ -85,7 +93,7 @@ public class UsuarioController {
 
         usuarioService.habiltar(dni);
 
-        return listar(modelo);
+        return "redirect:/usuario/listar-usuarios";
     }
 
     @GetMapping("/modificar")
@@ -132,17 +140,28 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
     @GetMapping("/inicio")
-    public String inicio(ModelMap modelo, HttpSession session) {
+    public String inicio(Model modelo, HttpSession session) {
         Usuario u = (Usuario) session.getAttribute("usuariosession");
-        
+
         if (u.getHabilitado()) {
             List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
-            modelo.put("prestadores", prestadores);
+            modelo.addAttribute("prestadores", prestadores);
             return "inicio-usuario.html";
         } else {
-            modelo.put("error", "Has sido deshabilitado.");
+            modelo.addAttribute("error", "Has sido deshabilitado.");
             return "login.html";
         }
+    }
+
+    @GetMapping("inicio/descargar")
+    public String descargar(@RequestParam String opc, @RequestParam(required = false) String rubro) {
+        try {
+            csvService.imrpimirListaPrestadores(opc,rubro);
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "redirect:/usuario/inicio";
     }
 
     @PostMapping("/buscar")
@@ -151,7 +170,8 @@ public class UsuarioController {
         try {
             List<Prestador> prestadores = prestadorService.listarPorRubro("%" + q.substring(0, 3).toUpperCase() + "%");
             modelo.put("prestadores", prestadores);
-
+            Prestador prestador = prestadores.get(0);
+            modelo.put("prestador", prestador);
         } catch (Exception e) {
         }
 
@@ -161,16 +181,15 @@ public class UsuarioController {
     @PostMapping("/buscar-usuarios")
     public String buscarUsuario(ModelMap modelo, @RequestParam String q) {
 
-        List<Usuario> usuarios = new ArrayList<>();;
+        List<Usuario> usuarios = new ArrayList<>();
         try {
 
-            Usuario u = usuarioService.buscarPorMail(q);
-            usuarios.add(u);
+            usuarios = usuarioService.buscarPorParteDeMail("%" + q + "%");
 
         } catch (Error e) {
             modelo.put("error", e.getMessage());
         }
-        
+        System.out.println(usuarios.size());
         modelo.put("usuarios", usuarios);
         return "listar-usuarios.html";
     }
@@ -186,13 +205,13 @@ public class UsuarioController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("{cuit}")
-    public String eliminar(HttpSession session, ModelMap modelo, @PathVariable("cuit") String cuit) {
+    public String eliminar(HttpSession session, Model modelo, @PathVariable("cuit") String cuit) {
 
         try {
             votoService.eliminarVotoPorPrestador(cuit);
             prestadorService.eliminar(cuit);
         } catch (Exception e) {
-            modelo.put("error", e.getMessage());
+            modelo.addAttribute("error", e.getMessage());
         }
         return inicio(modelo, session);
     }
