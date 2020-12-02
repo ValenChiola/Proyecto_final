@@ -154,9 +154,9 @@ public class UsuarioController {
     }
 
     @GetMapping("inicio/descargar")
-    public String descargar() {
+    public String descargar(@RequestParam String opc, @RequestParam(required = false) String rubro) {
         try {
-            csvService.imrpimirListaPrestadores();
+            csvService.imrpimirListaPrestadores(opc,rubro);
         } catch (IOException ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,7 +170,8 @@ public class UsuarioController {
         try {
             List<Prestador> prestadores = prestadorService.listarPorRubro("%" + q.substring(0, 3).toUpperCase() + "%");
             modelo.put("prestadores", prestadores);
-
+            Prestador prestador = prestadores.get(0);
+            modelo.put("prestador", prestador);
         } catch (Exception e) {
         }
 
