@@ -19,7 +19,7 @@ public class CsvService {
     private PrestadorService prestadorService;
 
     public void imrpimirListaPrestadores() throws IOException {
-        String SAMPLE_CSV_FILE = "C:\\Users\\Usuario\\Desktop\\" + new Date().getDay() + "-" + new Date().getMonth() + "lista-prestadores.csv";
+        String SAMPLE_CSV_FILE = "C:\\Users\\Usuario\\Downloads\\" + new Date().getDay() + "-" + new Date().getMonth() + "lista-prestadores.csv";
 
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
 
