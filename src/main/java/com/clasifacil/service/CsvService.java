@@ -18,20 +18,41 @@ public class CsvService {
     @Autowired
     private PrestadorService prestadorService;
 
-    public void imrpimirListaPrestadores() throws IOException {
-        String SAMPLE_CSV_FILE = "C:\\Users\\Usuario\\Downloads\\" + new Date().getDay() + "-" + new Date().getMonth() + "lista-prestadores.csv";
+    public void imrpimirListaPrestadores(String opc, String rubro) throws IOException {
+
+        List<Prestador> prestadores = null;
+
+        switch (opc) {
+            case "todos":
+                prestadores = prestadorService.listarTodosPorValoracion();
+                break;
+
+            case "buscados":
+                prestadores = prestadorService.listarPorRubro(rubro);
+                break;
+        }
+
+        if (prestadores == null) {
+            return;
+        }
+
+        String SAMPLE_CSV_FILE = "";
+
+        if (rubro != null) {
+            SAMPLE_CSV_FILE = "C:\\Users\\Usuario\\Downloads\\" + "lista-prestadores-" + rubro + ".csv";
+        } else {
+            SAMPLE_CSV_FILE = "C:\\Users\\Usuario\\Downloads\\" + "lista-prestadores.csv";
+        }
 
         BufferedWriter writer = Files.newBufferedWriter(Paths.get(SAMPLE_CSV_FILE));
 
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL
                 .withHeader("CUIT", "NOMBRE", "APELLIDO", "MAIL", "TELEFONO", "RUBRO", "ZONA", "VALORACION"))) {
-            List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
 
             for (Prestador p : prestadores) {
-                System.out.println("Hola");
-                csvPrinter.printRecord(p.getCuit(),p.getNombre(),
-                         p.getApellido(),p.getMail(),
-                         p.getTelefono(),p.getRubro().toString(),
+                csvPrinter.printRecord(p.getCuit(), p.getNombre(),
+                        p.getApellido(), p.getMail(),
+                        p.getTelefono(), p.getRubro().toString(),
                         p.getZona().getNombre(), p.getValoracion());
             }
         }

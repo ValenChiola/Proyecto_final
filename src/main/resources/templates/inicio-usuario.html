@@ -57,7 +57,32 @@
         <div class="container2">
             <div class="container">
                 <div class="btn-group align-items-center justify-content-center" role="group" aria-label="Basic example">
-                    <a href="/usuario/inicio/descargar" type="button" class="btn btn-secondary">Descargar Lista de Prestadores</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Descargar Lista de prestadores
+                        </button>
+                        <div  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=todos}" >Todos</a>
+                            <button style="background: none; color:black;border:none" class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Por Rubros
+                            </button>
+                            <div id="dropdown2" class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=ELECTRICISTA}" >Electricidad</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=PINTOR}" >Pintura</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=LIMPIEZA}" >Limpieza</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=CARPINTERO}" >Carpintería</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=PLOMERO}" >Plomería</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=GASISTA}" >Gasista</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=ALABAÑIL}" >Albañil</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=JARDINERO}" >Jardinería</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=MECANICO}" >Mecámica</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=CERRAJERO}" >Cerrajería</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=METALURGICO}" >Metalúrgica</a>
+                                <a class="dropdown-item" th:href="@{/usuario/inicio/descargar?opc=buscados&rubro=OTROS}" >Otros</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<a th:href="@{/usuario/inicio/descargar?opc=todos}" type="button" class="btn btn-secondary">Descargar Lista de Prestadores</a>-->
                     <a href="/img/instructivo.mkv" download="Instructivo" type="button" class="btn btn-secondary">Instructivo de Excel para alinear por columnas</a>
                 </div>
             </div>
