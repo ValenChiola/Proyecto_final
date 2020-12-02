@@ -158,7 +158,7 @@ public class UsuarioController {
         try {
             csvService.imrpimirListaPrestadores();
         } catch (IOException ex) {
-            System.out.println("Raios");
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return "redirect:/usuario/inicio";
