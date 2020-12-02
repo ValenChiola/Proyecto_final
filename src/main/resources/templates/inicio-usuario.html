@@ -55,11 +55,12 @@
             </div>
         </nav>
         <div class="container2">
-            <ul>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a href="/usuario/inicio/descargar" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Descargar Lista de Prestadores</a>
-                </li>
-            </ul>
+            <div class="container">
+                <div class="btn-group align-items-center justify-content-center" role="group" aria-label="Basic example">
+                    <a href="/usuario/inicio/descargar" type="button" class="btn btn-secondary">Descargar Lista de Prestadores</a>
+                    <a href="/img/instructivo.mkv" download="Instructivo" type="button" class="btn btn-secondary">Instructivo de Excel para alinear por columnas</a>
+                </div>
+            </div>
             <h3 class="text-center" th:if="${#lists.isEmpty(prestadores)}" >Lo sentimos, no hay prestadores con esa especialización :(</h3>
             <div class="card" th:each="p : ${prestadores}">
                 <label th:text="${p.rubro}"></label>
