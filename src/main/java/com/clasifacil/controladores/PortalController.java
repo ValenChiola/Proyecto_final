@@ -49,7 +49,7 @@ public class PortalController {
 
         return checkLogueado(session);
     }
-
+// hola
     private String checkLogueado(HttpSession session) {
         if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
             if (session.getAttribute("role").equals("prestador")) {
