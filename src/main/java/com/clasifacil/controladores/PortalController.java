@@ -56,7 +56,9 @@ public class PortalController {
             if (session.getAttribute("role").equals("prestador")) {
                 return "redirect:/prestador/inicio";
             }
-            return "redirect:/usuario/inicio";
+            else if (session.getAttribute("role").equals("usuario")) {
+                return "redirect:/usuario/inicio";
+            }
         }
 
         return "login.html";
