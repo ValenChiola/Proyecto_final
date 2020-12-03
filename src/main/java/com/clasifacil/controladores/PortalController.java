@@ -47,7 +47,6 @@ public class PortalController {
             modelo.addAttribute("logout", "Has salido de la plataforma exitosamente.");
         }
 
-        
         return checkLogueado(session);
     }
 
@@ -55,13 +54,14 @@ public class PortalController {
         if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
             if (session.getAttribute("role").equals("prestador")) {
                 return "redirect:/prestador/inicio";
+            } else if (session.getAttribute("role").equals("usuario")) {
+                return "redirect:/usuario/inicio";
             }
-            return "redirect:/usuario/inicio";
         }
 
         return "login.html";
     }
-    
+
     @GetMapping("/buscar/{rubro}")
     public String buscar(ModelMap modelo, @PathVariable("rubro") String rubro) {
         System.out.println(rubro);
@@ -126,7 +126,7 @@ public class PortalController {
         } catch (Error e) {
             modelo.put("error", e.getMessage());
             modelo.put("mail", mail);
-            
+
             return "recuperar.html";
         }
 
