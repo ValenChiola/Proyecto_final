@@ -1,13 +1,19 @@
 package com.clasifacil.service;
 
+
+import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Roles;
+import com.clasifacil.repositorios.PrestadorRepositorio;
+
 import com.clasifacil.repositorios.UsuarioRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +37,13 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private ZonaRepositorio zr;
 
+
+    @Autowired
+    private NotificacionService notificacionService;
+
+    @Autowired
+    private PrestadorRepositorio prestadorRepositorio;
+
     @Transactional
     public void registrar(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2, String idZona) throws Error {
 
@@ -38,37 +51,37 @@ public class UsuarioService implements UserDetailsService {
 
         Optional<Usuario> respuesta = ur.findById(dni);
         Usuario respuesta2 = ur.buscarPorMail(mail);
-        Optional<Zona> respuestaZ = zr.findById(idZona);
 
         if (!respuesta.isPresent()) {
             if (respuesta2 == null) {
-                if (respuestaZ.isPresent()) {
-                    Usuario u = respuesta.get();
-                    Zona z = respuestaZ.get();
+                Usuario u = new Usuario();
+                Zona z = zr.getOne(idZona);
 
-                    u.setDni(dni);
-                    u.setNombre(nombre);
-                    u.setApellido(apellido);
-                    u.setMail(mail);
-                    u.setTelefono(telefono);
-                    String encriptada = new BCryptPasswordEncoder().encode(clave1);
-                    u.setClave(encriptada);
-                    u.setHabilitado(true);
-                    u.setRol(Roles.REGULAR);
-                    u.setZona(z);
+                u.setDni(dni);
+                u.setNombre(nombre);
+                u.setApellido(apellido);
+                u.setMail(mail);
+                u.setTelefono(telefono);
+                String encriptada = new BCryptPasswordEncoder().encode(clave1);
+                u.setClave(encriptada);
+                u.setHabilitado(true);
+                u.setRol(Roles.REGULAR);
+                u.setZona(z);
 
-                    ur.save(u);
-                }
+                ur.save(u);
+
             } else {
                 throw new Error("Ya existe un Usuario con ese mail");
             }
         } else {
             throw new Error("Ya existe un Usuario con ese DNI.");
         }
+
     }
 
     @Transactional
-    public void deshabiltar(String dni) {
+    public void deshabiltar(String dni) throws Error {
+
 
         Optional<Usuario> respuesta = ur.findById(dni);
 
@@ -81,7 +94,7 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional
-    public void habiltar(String dni) {
+    public void habiltar(String dni) throws Error {
 
         Optional<Usuario> respuesta = ur.findById(dni);
 
@@ -91,6 +104,34 @@ public class UsuarioService implements UserDetailsService {
         } else {
             throw new Error("No existe ese Usuario.");
         }
+    }
+
+
+    @Transactional
+    public void modificarUsuario(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2,
+            String idZona) throws Error {
+
+        validar(dni, nombre, apellido, mail, telefono, clave1, clave2, idZona);
+
+        Optional<Usuario> us = ur.findById(dni);
+        Usuario usuario = us.get();
+
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setMail(mail);
+        usuario.setTelefono(telefono);
+        String encriptada = new BCryptPasswordEncoder().encode(clave1);
+        usuario.setClave(encriptada);
+
+        Optional<Zona> zona = zr.findById(idZona);
+        if (zona.isPresent()) {
+            Zona z = zona.get();
+            usuario.setZona(z);
+        } else {
+            throw new Error("No se encontro la zona");
+        }
+        ur.save(usuario);
+
     }
 
     private void validar(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2, String idZona) throws Error {
@@ -137,21 +178,93 @@ public class UsuarioService implements UserDetailsService {
         Usuario u = ur.buscarPorMail(mail);
 
         if (u == null) {
-            return null;
+            Prestador p = prestadorRepositorio.buscarPrestadorPorMail(mail);
+            if (p == null) {
+                return null;
+            } else {
+                List<GrantedAuthority> permisos = new ArrayList<>();
+
+                GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_PRESTADOR");
+                permisos.add(p1);
+
+                ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+                HttpSession session = attr.getRequest().getSession(true);
+                session.setAttribute("prestadorsession", p);
+                session.setAttribute("role", "prestador");
+
+                User user = new User(p.getMail(), p.getClave(), permisos);
+
+                return user;
+            }
+        } else {
+
+            List<GrantedAuthority> permisos = new ArrayList<>();
+
+            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + u.getRol());
+            permisos.add(p1);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", u);
+            session.setAttribute("role", "usuario");
+
+            User user = new User(u.getMail(), u.getClave(), permisos);
+            System.out.println(u.getRol());
+            return user;
         }
+    }
 
-        List<GrantedAuthority> permisos = new ArrayList<>();
+    @Transactional
+    public List<Usuario> listarTodos() {
+        return ur.listarTodos();
+    }
 
-        GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + u.getRol());
-        permisos.add(p1);
+    @Transactional
+    public Usuario buscarPorDNI(String dni) throws Error {
 
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        Optional<Usuario> respuesta = ur.findById(dni);
 
-        HttpSession session = attr.getRequest().getSession(true);
-        session.setAttribute("usuarioesession", u);
+        if (respuesta.isPresent()) {
+            return respuesta.get();
+        } else {
+            throw new Error("No se ha encontrado el usuario solicitado.");
+        }
+    }
 
-        User user = new User(u.getMail(), u.getClave(), permisos);
+    @Transactional
+    public Usuario buscarPorMail(String mail) throws Error {
 
-        return user;
+        Usuario respuesta = ur.buscarPorMail(mail);
+
+        return respuesta;
+    }
+
+    @Transactional
+    public void upgrade(String dni) {
+        Usuario u = ur.getOne(dni);
+
+        u.setRol(Roles.ADMIN);
+        ur.save(u);
+    }
+
+    @Transactional
+    public void recuperarContrasenia(String mail) {
+
+        String claveNueva = UUID.randomUUID().toString();
+        String claveNuevaEncriptada = new BCryptPasswordEncoder().encode(claveNueva);
+        
+        Usuario u = buscarPorMail(mail);
+        u.setClave(claveNuevaEncriptada);
+        ur.save(u);
+        notificacionService.enviarModificarContraseña("", "Recuperación de contraseña", mail, claveNueva);
+        
+    }
+    
+     @Transactional
+    public List<Usuario> buscarPorParteDeMail(String mail) throws Error {
+
+        return ur.buscarPorParteDeMail(mail);
     }
 }

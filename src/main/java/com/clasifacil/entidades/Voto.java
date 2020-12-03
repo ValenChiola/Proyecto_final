@@ -4,15 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Voto {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    
+
+    @ManyToOne
     private Usuario usuario;
-    
+
+    @ManyToOne
     private Prestador prestador;
 
     public Voto() {
@@ -52,6 +58,5 @@ public class Voto {
     public String toString() {
         return "Voto{" + "id=" + id + ", usuario=" + usuario + ", prestador=" + prestador + '}';
     }
-    
-    
+
 }
