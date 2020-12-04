@@ -52,9 +52,11 @@ public class PortalController {
 
     private String checkLogueado(HttpSession session) {
         if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
+            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             if (session.getAttribute("role").equals("prestador")) {
                 return "redirect:/prestador/inicio";
-            } else if (session.getAttribute("role").equals("usuario")) {
+            }
+            else if (session.getAttribute("role").equals("usuario") && usuario.getHabilitado() == false) {
                 return "redirect:/usuario/inicio";
             }
         }
