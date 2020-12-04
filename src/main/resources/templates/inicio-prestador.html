@@ -31,8 +31,8 @@
     <body id="page-top">
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="/"><img src="/img/logo_clasifacil.png" width="180"
-                                                                        height="65" /></a>
+                <a class="navbar-brand js-scroll-trigger" href="/#page-top"><img src="/img/logo_clasifacil.png" width="180"
+                                                                                 height="65" /></a>
 
 
                 <button
@@ -51,20 +51,14 @@
                 </div>
             </div>
         </nav>
-        <div class="container2">
-            <div class="col-lg-4 d-flex mr-auto">
-                <img alt="" class="rounded mx-auto d-flex" width="350" height="auto" th:src="@{/foto/load/} + ${session.prestadorsession.foto.id}"/>
-                <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 20%;" th:text="${session.prestadorsession.nombre}"></h1>
-                <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 5%;" th:text="${session.prestadorsession.apellido}"></h1>
+        <div id="page-top">
+            <div class="container2">
+                <div class="col-lg-4 d-flex mr-auto">
+                    <img alt="" class="rounded mx-auto d-flex" width="350" height="auto" th:src="@{/foto/load/} + ${session.prestadorsession.foto.id}"/>
+                    <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 20%;" th:text="${session.prestadorsession.nombre}"></h1>
+                    <h1 class="text-uppercase" style="text-align: center; padding-top: 50%; padding-left: 5%;" th:text="${session.prestadorsession.apellido}"></h1>
+                </div>
             </div>
-        </div>
-            <!--            <h1 style="padding-top: 5%;" th:text="${session.prestadorsession.nombre + ' ' + session.prestadorsession.apellido}"></h1>
-            
-                    </div>
-                    <div>
-                        <img alt="" class="rounded mx-auto d-flex" width="auto" height="400" th:src="@{/foto/load/} + ${session.prestadorsession.foto.id}"/>
-                    </div>-->
-
             <table class="table">
                 <tbody>
                     <tr>
@@ -106,18 +100,7 @@
                     </tr>
                 </tbody>
             </table>
-
-            <!--        <h2 id="valoracion">Valoración:</h2>
-                    <div style="display: flex;
-                         margin:0 auto; color: #e0a800;" >
-                        <span th:if="${session.prestadorsession.valoracion == null}"style="padding-left:1rem;color:black; align-content: center;" >No te han votado aún</span><br>
-                        <span th:if="${session.prestadorsession.valoracion != null}"style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
-                        <span th:if="${session.prestadorsession.valoracion > 1}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
-                        <span th:if="${session.prestadorsession.valoracion > 2}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
-                        <span th:if="${session.prestadorsession.valoracion > 3}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
-                        <span th:if="${session.prestadorsession.valoracion > 4}" style="padding-left:1rem; align-content: center;" ><i class="fa fa-star"></i></span><br>
-                    </div>-->
-
+        </div>
     </body>
     <footer class="footer text-center">
         <div class="container">
@@ -137,11 +120,8 @@
                             class="fab fa-fw fa-linkedin-in"></i></a>
 
                 </div>
-
-
-
             </div>
-
+        </div>
     </footer>
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
@@ -165,6 +145,4 @@
     <script src="assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-</body>
-
 </html>
