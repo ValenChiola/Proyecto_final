@@ -194,6 +194,7 @@ public class UsuarioController {
         return "listar-usuarios.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
     @GetMapping("/{cuit}/details")
     public String leerMas(ModelMap modelo, @PathVariable("cuit") String cuit) {
 
