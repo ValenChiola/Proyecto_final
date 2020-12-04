@@ -21,6 +21,7 @@ public class Prestacion {
     
     @ManyToOne
     private Usuario usuario;
+    
     @ManyToOne
     private Prestador prestador;
 

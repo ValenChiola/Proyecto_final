@@ -1,16 +1,19 @@
 package com.clasifacil.service;
 
+
 import com.clasifacil.entidades.Prestador;
 import com.clasifacil.entidades.Usuario;
 import com.clasifacil.entidades.Zona;
 import com.clasifacil.enums.Roles;
 import com.clasifacil.repositorios.PrestadorRepositorio;
+
 import com.clasifacil.repositorios.UsuarioRepositorio;
 import com.clasifacil.repositorios.ZonaRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,7 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private ZonaRepositorio zr;
+
 
     @Autowired
     private NotificacionService notificacionService;
@@ -65,17 +69,19 @@ public class UsuarioService implements UserDetailsService {
                 u.setZona(z);
 
                 ur.save(u);
+
             } else {
                 throw new Error("Ya existe un Usuario con ese mail");
             }
         } else {
             throw new Error("Ya existe un Usuario con ese DNI.");
         }
-//        notificaionService.enviar("Bienvenido a Clasifacil! Estamos muy contentos de que nos hayas elegido.", "Registro", mail);
+
     }
 
     @Transactional
     public void deshabiltar(String dni) throws Error {
+
 
         Optional<Usuario> respuesta = ur.findById(dni);
 
@@ -99,6 +105,7 @@ public class UsuarioService implements UserDetailsService {
             throw new Error("No existe ese Usuario.");
         }
     }
+
 
     @Transactional
     public void modificarUsuario(String dni, String nombre, String apellido, String mail, String telefono, String clave1, String clave2,
