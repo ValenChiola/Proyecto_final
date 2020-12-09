@@ -141,16 +141,10 @@ public class UsuarioController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_REGULAR')")
     @GetMapping("/inicio")
     public String inicio(Model modelo, HttpSession session) {
-        Usuario u = (Usuario) session.getAttribute("usuariosession");
-
-        if (u.getHabilitado()) {
             List<Prestador> prestadores = prestadorService.listarTodosPorValoracion();
             modelo.addAttribute("prestadores", prestadores);
+            
             return "inicio-usuario.html";
-        } else {
-            modelo.addAttribute("error", "Has sido deshabilitado.");
-            return "login.html";
-        }
     }
 
     @GetMapping("inicio/descargar")
