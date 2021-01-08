@@ -40,7 +40,11 @@ public class PortalController {
     public String login(HttpSession session, ModelMap modelo, @RequestParam(required = false) String logout, @RequestParam(required = false) String error) {
 
         if (error != null && !error.isEmpty()) {
-            modelo.addAttribute("error", "Mail o Clave incorrectos.");
+            if (error.equals("error")) {
+                modelo.addAttribute("error", "Mail o Clave incorrecta");
+            } else {
+                modelo.addAttribute("error", error);
+            }
         }
 
         if (logout != null && !logout.isEmpty()) {
@@ -52,11 +56,11 @@ public class PortalController {
 
     private String checkLogueado(HttpSession session) {
         if (session.getAttribute("usuariosession") != null || session.getAttribute("prestadorsession") != null) {
-            Usuario usuario = (Usuario) session.getAttribute("usuariosession");
             if (session.getAttribute("role").equals("prestador")) {
                 return "redirect:/prestador/inicio";
             }
-            else if (session.getAttribute("role").equals("usuario") && usuario.getHabilitado() == false) {
+            Usuario u = (Usuario) session.getAttribute("usuariosession");
+            if (u.getHabilitado()) {
                 return "redirect:/usuario/inicio";
             }
         }
